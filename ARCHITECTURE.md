@@ -9,10 +9,10 @@ The purpose of this document is to describe the design and architecture of miles
 Around 2021 Kristi Brescia decided to create a document that displayed what
 classes students should take at each semester of college and what extra-curricular
 activities they should engage in, in order to increase their career readiness. This
-document turned out to be successful and various colleges across CUNY decided to
-copy it. The goal of this application is to build upon this document and make it
-more interactive. Students will not able be able to view this static document,
-but interact with it by asking it questions and getting individualized responses.
+document turned out to be successful. The goal of this application is to build upon
+this document and make it more interactive. Students will not able be able to view
+this static document, but interact with it by asking it questions and getting
+individualized responses.
 
 ### Features of the application
 - Users will get their personalized graduation milestone box
@@ -22,7 +22,7 @@ but interact with it by asking it questions and getting individualized responses
 
 
 #### Must have
-- Intro page
+- Home page
 - Info form
   - Graduation date
   - Number of credits
@@ -64,10 +64,29 @@ but interact with it by asking it questions and getting individualized responses
 ## Vector Database Design
 - Purpose: the purpose of the vector database will store the contents of the gitbook.
   This will better aid the llm(large language model) response.
+- Data source: https://csi-cs-department.gitbook.io/internship-handbook/sitemap.xml
 
 - Collections
-  - gitbook data
+  - gitbook_data
+    - refresh_rate := (based on last mod)
 
 ## Backend Routes
+
+### View
+
+#### GET /
+- home page: `<insert wireframe>`
+  - description: display information basic about application, button to go to the form
+
+#### GET /get-to-know-you
+- form page: `<insert wireframe>`
+  - description: form to get information, reactively move through the form, transition
+  animations
+
+#### GET /chat
+- chat page: `<insert wireframe>`
+  - description: 
+
+### Api
 
 ## Other
