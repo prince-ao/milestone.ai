@@ -42,6 +42,7 @@ individualized responses.
 - Implement all necessary features
 - Make all user interactions smooth and "reactive"
 - Generate accurate llm responses
+- Make application as dynamic
 
 ## Technology Stack
 
@@ -58,7 +59,7 @@ individualized responses.
 - OpenAI (AI utils) (external api)
 
 ### Database layer
-- postgresql (relational data)
+- sqlite (relational data)
 - milvus (semantic data)
 
 ## Vector Database Design
@@ -69,6 +70,16 @@ individualized responses.
 - Collections
   - gitbook_data
     - refresh_rate := (based on last mod)
+
+## Relational Database Design
+
+### Tables
+
+#### Admins
+- id INT PRIMARY KEY
+- username VARCHAR(30) NOT NULL UNIQUE
+- email VARCHAR(255)
+- password VARCHAR(200) NOT NULL // hash
 
 ## Backend Routes
 
@@ -83,10 +94,32 @@ individualized responses.
   - description: form to get information, reactively move through the form, transition
   animations
 
+#### GET /confirmation
+- confirmation page: `<insert wireframe>`
+  - description: will display the user's respective degree milestone map
+  - optional: each actionable row might have a checkbox, this will give us information
+  to what the user has done already
+  - note: this can be added to `/get-to-know-you`
+
 #### GET /chat
 - chat page: `<insert wireframe>`
-  - description: 
+  - description: displays final personalized degree milestone map, 
+
+#### GET /admin/login
+- login page for admin: `<insert wireframe>`
+  - description: allows admin to login, master login
+
+#### GET /admin
+- admin page: `<insert wireframe>`
+  - description: allows user to update milestone map, allows admin to add or remove account,
+  allows admin to set other admin permissions
+  - redirects: `/admin/login` if not logged in
 
 ### Api
+
+#### POST /get-to-know-you
+  - description: handles view form
+  - request:
+    - body: (form)
 
 ## Other
