@@ -86,31 +86,42 @@ individualized responses.
 ### View
 
 #### GET /
-- home page: `<insert wireframe>`
+- home page: <img width="925" alt="home" src="https://github.com/prince-ao/milestone.ai/assets/112574417/768e2fdc-c978-442d-b614-ecb0a207a5f1">
+
   - description: display information basic about application, button to go to the form
 
 #### GET /get-to-know-you
-- form page: `<insert wireframe>`
+<img width="925" alt="form_year" src="https://github.com/prince-ao/milestone.ai/assets/112574417/1b41a153-5ff7-4de8-932a-1e3462e77d2f">
+<img width="925" alt="form_name" src="https://github.com/prince-ao/milestone.ai/assets/112574417/af7fffe1-069c-4b6d-a9c6-65245331bf8c">
+<img width="925" alt="form_classes_taken" src="https://github.com/prince-ao/milestone.ai/assets/112574417/3e07153d-4eb8-49a6-a413-e1056b8ca67e">
+
+- form page: 
   - description: form to get information, reactively move through the form, transition
   animations
 
 #### GET /confirmation
-- confirmation page: `<insert wireframe>`
+- confirmation page: <img width="925" alt="confirmation" src="https://github.com/prince-ao/milestone.ai/assets/112574417/3d5be8fe-a98c-4ec2-9c4e-2affb5892124">
+
   - description: will display the user's respective degree milestone map
   - optional: each actionable row might have a checkbox, this will give us information
   to what the user has done already
   - note: this can be added to `/get-to-know-you`
 
 #### GET /chat
-- chat page: `<insert wireframe>`
+- chat page:
+<img width="925" alt="chat" src="https://github.com/prince-ao/milestone.ai/assets/112574417/914c6b59-0962-46b8-b767-7cf1c1696e35">
+<img width="925" alt="advice_page" src="https://github.com/prince-ao/milestone.ai/assets/112574417/50d65d55-e903-45ef-b68b-ecf9d4b0e8f3">
+
   - description: displays final personalized degree milestone map, 
 
 #### GET /admin/login
-- login page for admin: `<insert wireframe>`
+- login page for admin: <img width="925" alt="admin_login" src="https://github.com/prince-ao/milestone.ai/assets/112574417/c724c052-d447-4e60-b46e-bffa0286e634">
+
   - description: allows admin to login, master login
 
 #### GET /admin
-- admin page: `<insert wireframe>`
+- admin page: <img width="925" alt="admin_page" src="https://github.com/prince-ao/milestone.ai/assets/112574417/04e48176-beb9-41a1-89cc-0ecd1defdfc6">
+
   - description: allows user to update milestone map, allows admin to add or remove account,
   allows admin to set other admin permissions
   - redirects: `/admin/login` if not logged in
