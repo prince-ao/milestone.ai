@@ -11,6 +11,9 @@ pnpm install
 # start backend
 python run.py
 
+# create an output.css file
+touch app/static/css/output.css
+
 # start tailwind process
 pnpm runtailwind
 ```
