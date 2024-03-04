@@ -2,8 +2,7 @@
 
 ## Introduction
 
-### Purpose of document
-The purpose of this document is to describe the design and architecture of milestone.ai.
+### Purpose of document The purpose of this document is to describe the design and architecture of milestone.ai.
 
 ### Vision Statement
 Around 2021 Kristi Brescia decided to create a document that displayed what
@@ -98,10 +97,13 @@ individualized responses.
 - form page: 
   - description: form to get information, reactively move through the form, transition
   animations
+  - note: set cookie and initialize session before sending message
 
 #### GET /confirmation
 - confirmation page: <img width="925" alt="confirmation" src="https://github.com/prince-ao/milestone.ai/assets/112574417/3d5be8fe-a98c-4ec2-9c4e-2affb5892124">
 
+  - If no valid cookie, redirect to /get-to-know-you (pop up message)
+  - generate a milestone map based on session data
   - description: will display the user's respective degree milestone map
   - optional: each actionable row might have a checkbox, this will give us information
   to what the user has done already
@@ -128,9 +130,26 @@ individualized responses.
 
 ### Api
 
-#### POST /get-to-know-you
-  - description: handles view form
-  - request:
-    - body: (form)
+#### WS /api/get-to-know-you
+- Communication flow
+<img alt="communication flow" src="./assets/images/flow.png">
+
+- Example question format:
+```json
+{
+  "personal_info": {
+    "full_name": "string"
+  },
+  "academic_info": {
+    "classes_taken": "string[]",
+    "credits_taken": "number",
+    "grauation_year": number,
+    "academic_standing": "string"
+  },
+  "career_info": {
+    // dynamically generated
+  }
+}
+```
 
 ## Other
