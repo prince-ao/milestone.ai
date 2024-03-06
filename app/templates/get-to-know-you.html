@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div x-data="{ question: '' }" class="h-lvh">
+  <header class="h-header">
+    <a href="/">
+      <button>cancel</button>
+    </a>
+    <h1>milestone.ai</h1>
+  </header>
+  <main id="form-container" class="min-h-main flex justify-center items-center">
+    <div id="form-content">
+      <p x-text="question"></p>
+      <button>next</button>
+    </div>
+  </main>
+</div>
+{% endblock %}

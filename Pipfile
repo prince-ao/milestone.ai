@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 flask = "*"
+python-decouple = "*"
+rq = "*"
+redis = "*"
 
 [dev-packages]
 

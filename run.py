@@ -4,4 +4,4 @@ from app.config import DevConfig
 if __name__ == '__main__':
     app = create_app(DevConfig)
 
-    app.run()
+    app.run(port=5002)
