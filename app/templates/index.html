@@ -2,10 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Present.ai</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3" defer></script>
+    <script src="https://unpkg.com/htmx.org"></script>
     <link href="{{url_for('static',filename='css/output.css')}}" rel="stylesheet">
+    <link href="../static/css/customStyles.css" rel="stylesheet">
 </head>
-<body>
-    <h1 class="text-red-400 font-bold text-3xl">Hello, World</h1>
+<body class="gradient-cloudy-background">
+    <div hx-get="navbar" hx-trigger="load" hx-target="this" class=""></div>
+    <!-- The rest of your page content -->
+    <div class="container mx-auto px-4">
+
+    <!-- Header Section -->
+    <header class="text-center py-10 font-mono">
+        
+        <div class="w-3/4 lg:w-5/12 mx-auto text-2xl">
+                <div class="mx-auto mt-8">
+                    <!-- mobile first approach (set fonts, widths, heights, etc. for smaller screens -->
+                    <!-- then apply changes for bigger sizes. sm:, md:, lg:, xl:, etc.)  -->
+                    <p class="w-11/12 mx-auto text-center font-bold sm:text-md md:text-lg lg:text-2xl xl:text-3xl">
+                        Milestone is an advisement tool to help you beat expectations
+                    </p>
+
+                    <p class="w-11/12 mx-auto text-center mt-8 text-lg">
+                        Fill out some information about your college experiences,
+                        and we'll provide personalized advice!
+                    </p>
+                    <!-- button to form -->
+
+                    <a href="/form">
+                        <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded sm:text-sm md:text-md lg:text-lg xl:text-xl">
+                        Get Started 
+                        </button>
+                    </a>
+
+               </div>
+            </hr>
+        </div>
+    </header>
+</div>
+
 </body>
 </html>
