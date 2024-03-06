@@ -1,0 +1,14 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Present.ai</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3" defer></script>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <link href="{{url_for('static',filename='css/output.css')}}" rel="stylesheet">
+    <link href="../static/css/customStyles.css" rel="stylesheet">
+</head>
+
+<div>
+    <div hx-get="navbar" hx-trigger="load" hx-target="this" class=""></div>
+    Test
+</div>
