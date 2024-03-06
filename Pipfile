@@ -8,6 +8,7 @@ flask = "*"
 python-decouple = "*"
 rq = "*"
 redis = "*"
+colorama = "*"
 
 [dev-packages]
 

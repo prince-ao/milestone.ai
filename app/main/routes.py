@@ -46,3 +46,12 @@ def get_to_know_you():
         ...
 
     return resp
+
+
+@bp.route('/form')
+def form():
+    return render_template("form.html")
+
+# return json for the next generated question.
+# @bp.route('/form_question')
+# def formQuestion():
