@@ -1,11 +1,8 @@
 from flask import render_template, make_response, request
 from app.main import bp
+from ..redis_instance import r, USER_COOKIE_KEY
 import uuid
-import redis
 import json
-
-USER_COOKIE_KEY = 'mlsnuser'
-r = redis.Redis()
 
 
 @bp.route('/')
@@ -38,7 +35,7 @@ def get_to_know_you():
         json_initial_form_state = json.dumps(initial_form_state)
 
         try:
-            r.set(user_uuid, json_initial_form_state)
+            r.set(f"{user_uuid}:user", json_initial_form_state)
         except Exception:
             return {"message": "internal error"}, 500
 

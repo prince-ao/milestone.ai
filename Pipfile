@@ -9,6 +9,7 @@ python-decouple = "*"
 rq = "*"
 redis = "*"
 colorama = "*"
+flask-restx = "*"
 
 [dev-packages]
 

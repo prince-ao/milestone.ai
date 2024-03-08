@@ -1,17 +1,28 @@
 {% extends "base.html" %}
 
+{% block script %}
+<script src="//unpkg.com/alpinejs" defer></script>
+<script src="https://unpkg.com/htmx.org"></script>
+<script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+{% endblock %}
+
+
 {% block content %}
-<div x-data="{ question: '' }" class="h-lvh">
+<div x-data="{ }" class="h-lvh">
   <header class="h-header">
     <a href="/">
       <button>cancel</button>
     </a>
     <h1>milestone.ai</h1>
   </header>
-  <main id="form-container" class="min-h-main flex justify-center items-center">
+  <main 
+       hx-get="/form/state" 
+       hx-trigger="load" 
+       hx-target="#form-content" 
+       hx-swap="outerHTML" 
+       id="form-container" 
+       class="min-h-main flex justify-center items-center">
     <div id="form-content">
-      <p x-text="question"></p>
-      <button>next</button>
     </div>
   </main>
 </div>
