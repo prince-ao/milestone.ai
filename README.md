@@ -23,3 +23,17 @@ pnpm runtailwind
 - You must create a `.env` file, use the `.env.example` as the model or ask prince-ao.
 - create a file called output.css in `app/static/css/output.css` (this is where the css output from tailwind will be stored.)
 - when you're working on the frontend run `pnpm runtailwind` before you start, so the tailwind process can start
+
+## Starting Scraper
+
+```bash
+# install seleniumbase and chrome driver
+
+pipenv install seleniumbase
+
+sbase install chromedriver latest
+
+# run (can add options for removing pop up browser, and remove -s to stop print statements)
+
+pytest -s scraper.py
+```
