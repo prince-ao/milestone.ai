@@ -1,5 +1,8 @@
 # milestone.ai
 
+## Documentation
+[click here](https://github.com/prince-ao/milestone.ai/blob/main/ARCHITECTURE.md)
+
 ## Starting app
 
 ```bash
