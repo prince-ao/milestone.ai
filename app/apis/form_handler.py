@@ -1,8 +1,7 @@
-from flask import request, make_response
+from flask import request, make_response, render_template
 from flask_restx import Resource, Namespace
 from ..redis_instance import r, USER_COOKIE_KEY
 import json
-from ._questions import questions
 
 form_ns = Namespace('form', description="Operations related to form handling")
 
@@ -10,7 +9,8 @@ form_ns = Namespace('form', description="Operations related to form handling")
 @form_ns.route('/state')
 class State(Resource):
     def _get_state_question(self, current_state):
-        question = questions[int(current_state['state'])]
+        question = render_template(
+            f"questions/state-{current_state['state']}.html")
 
         return question
 
@@ -23,15 +23,18 @@ class State(Resource):
             return {"message": "index out-of-bound"}, 409
 
     def _update_state(self, current_state, data, user_uuid):
-        match current_state['state']:
-            case 1:
-                if data['first_name'] and data['last_name']:
-                    current_state['first_name'] = data['first_name']
-                    current_state['last_name'] = data['last_name']
-                else:
-                    raise ValueError("missing first_name or last_name.")
+        if data['type'] == 'next':
+            match current_state['state']:
+                case 1:
+                    if data['first_name'] and data['last_name']:
+                        current_state['first_name'] = data['first_name']
+                        current_state['last_name'] = data['last_name']
+                    else:
+                        raise ValueError("missing first_name or last_name.")
 
-        current_state['state'] = current_state['state'] + 1
+            current_state['state'] = current_state['state'] + 1
+        elif data['type'] == 'previous' and current_state['state'] > 0:
+            current_state['state'] = current_state['state'] - 1
 
         r.set(f"{user_uuid}:user", json.dumps(current_state))
 

@@ -1,0 +1,14 @@
+<form id="form-content"
+  hx-post="/form/state"
+  hx-swap="outerHTML"
+  hx-ext='json-enc'
+  >
+  <ul>
+    {% block content %}
+    {% endblock %}
+    <li>
+      {% block button %}
+      {% endblock %}
+    </li>
+  <ul>
+</form>

@@ -1,0 +1,12 @@
+{% extends "questions/base.html" %}
+{% from "questions/macros.html" import gen_buttons %}
+
+{% block content %}
+<li>
+  <p>Personal Information</p>
+</li>
+{% endblock %}
+
+{% block button %}
+{{ gen_buttons(0) }}
+{% endblock %}

@@ -1,0 +1,8 @@
+{% macro gen_buttons(state) %}
+<li>
+  {% if state != 0 -%}
+    <button id="previous" type="submit">previous</button>
+  {% endif %}
+  <button id="next" type="submit">next</button>
+</li>
+{% endmacro %}
