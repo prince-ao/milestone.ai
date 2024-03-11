@@ -53,6 +53,7 @@ class State(Resource):
 
     def post(self):
         data = request.get_json()
+        print(data)
 
         user_uuid = request.cookies.get(USER_COOKIE_KEY)
 
