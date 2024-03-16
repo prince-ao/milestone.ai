@@ -5,12 +5,12 @@ import uuid
 import json
 
 
-@bp.route('/')
+@bp.get('/')
 def index():
     return render_template("index.html")
 
 
-@bp.route('/get-to-know-you')
+@bp.get('/get-to-know-you')
 def get_to_know_you():
     resp = make_response(render_template("get-to-know-you.html"))
     user_uuid = request.cookies.get(USER_COOKIE_KEY)
@@ -45,10 +45,6 @@ def get_to_know_you():
     return resp
 
 
-@bp.route('/form')
-def form():
-    return render_template("form.html")
-
-# return json for the next generated question.
-# @bp.route('/form_question')
-# def formQuestion():
+@bp.get('/confirmation')
+def confirmation():
+    return render_template("confirmation.html")

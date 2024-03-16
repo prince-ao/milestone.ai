@@ -1,5 +1,4 @@
 {% extends "questions/base.html" %}
-{% from "questions/macros.html" import gen_buttons %}
 
 {% block content %}
 <li>
@@ -8,5 +7,5 @@
 {% endblock %}
 
 {% block button %}
-{{ gen_buttons(0) }}
+{{ html_button|safe }}
 {% endblock %}

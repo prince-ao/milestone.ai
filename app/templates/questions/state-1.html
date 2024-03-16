@@ -23,5 +23,10 @@
 {% endblock %}
 
 {% block button %}
-{{ gen_buttons(1) }}
+{{ html_button|safe }}
 {% endblock %}
+
+{% if end %}
+{% block end_state%}
+{% endblock %}
+{% endif %}

@@ -1,8 +1,10 @@
 <form id="form-content"
+  {% block end_state %}
   hx-post="/form/state"
   hx-swap="outerHTML"
   hx-ext='json-enc'
   class="animate-appear"
+  {% endblock %}
   >
   <ul>
     {% block content %}
