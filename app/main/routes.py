@@ -27,6 +27,8 @@ def get_to_know_you():
             "academic_info": {
                 "classes_taken": [],
                 "credits_taken": -1,
+                "graduation_semester": '',
+                "gpa": -1,
                 "classification": "",
             },
             "career_info": {}

@@ -1,48 +1,44 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="">
+    <a href="https://www.csi.cuny.edu/" class="fixed bottom-2 left-4 md:top-4 md:left-4 mb-2">
+        <img src="https://apps.csi.cuny.edu/Images/Logo_blue_gray.png" alt="Logo" class="h-auto w-[75px] sm:w-[100px] md:w-[150px] lg:w-[200px] xl:w-[250px]">
+    </a>
+</div>
 
-<main class="gradient-cloudy-background">
-  <nav class="relative">
+<main class="min-h-screen">
     <!-- Logo (Image on the left) -->
-    <div class="">
-      <a href="https://www.csi.cuny.edu/" class="fixed bottom-2 left-4 md:top-4 md:left-4 mb-2">
-          <img src="https://apps.csi.cuny.edu/Images/Logo_blue_gray.png" alt="Logo" class="h-auto w-[75px] sm:w-[100px] md:w-[150px] lg:w-[200px] xl:w-[250px]">
-      </a>
-    </div>
+
     <!-- Title (Centered) -->
-    <h1 class="text-4xl md:text-6xl mt-4 font-black from-inherit text-center text-blue-400 tracking-wider">milestone.ai</h1>
-  </nav>
-  <!-- The rest of your page content -->
-  <div class="container mx-auto px-4">
-
+    <h1 class="text-responsive-title mt-4 font-black from-inherit text-center text-[#475D7B] tracking-wider">milestone.ai</h1>
+    <!-- The rest of your page content -->
     <!-- Header Section -->
-    <header class="text-center py-10 font-mono">
-      <div class="w-3/4 lg:w-5/12 mx-auto text-2xl">
-        <div class="mx-auto mt-8">
-          <!-- mobile first approach (set fonts, widths, heights, etc. for smaller screens -->
-          <!-- then apply changes for bigger sizes. sm:, md:, lg:, xl:, etc.)  -->
-          <p class="w-11/12 mx-auto text-center font-bold sm:text-md md:text-lg lg:text-2xl xl:text-3xl">
-            Milestone is an advisement tool to help you beat expectations
-          </p>
+    <div class="min-h-screen flex flex-col justify-center items-center mx-auto py-10 font-mono">
+        <!-- Element One in Flex Box -->
+        <div class="flex flex-col flex-grow justify-center items-center w-full text-responsive-header">
+            <p class="w-3/4 lg:w-1/2 text-[#84C7F1] mx-auto text-center font-bold">
+                Milestone is an advisement tool to help you beat expectations.
+            </p>
+        </div>
 
-          <p class="w-11/12 mx-auto text-center mt-8 text-lg">
-            Fill out some information about your college experiences,
-            and we'll provide personalized advice!
-          </p>
-          <!-- button to form -->
+        <!-- Element Two in Flex Box -->
+        <div class="flex flex-col flex-grow justify-start items-center w-full">
+            <p class="w-3/4 lg:w-1/2 mx-auto text-center mt-8 text-responsive-subheader">
+                Fill out some information about your college experiences, and we'll provide personalized advice!
+            </p>
+            <!-- Button to Form -->
+            <a href="/get-to-know-you" class="mt-4 bg-[#84C7F1] hover:bg-[#5C9BD1] text-white font-bold py-2 px-4 rounded text-responsive-header">
+                Get Started
+            </a>
+        </div>
 
-          <a href="/get-to-know-you">
-            <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded sm:text-sm md:text-md lg:text-lg xl:text-xl">
-            Get Started 
-            </button>
-          </a>
+        <div class="flex flex-col flex-grow w-1/4">
 
         </div>
-        <hr>
-      </div>
-    </header>
-  </div>
+        
+    </div>
+
 </main>
 
 {% endblock %}
