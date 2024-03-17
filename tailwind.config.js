@@ -21,6 +21,12 @@ module.exports = {
             opacity: 1
           }
         }
+      },
+      fontSize: {
+        // clamp(minimum, preferred, maximum)
+        'responsive-title': 'max(4.5vw, 5.5vh)',
+        'responsive-header': 'max(2vw, 2.5vh)',
+        'responsive-subheader': 'max(1.5vw, 2vh)',
       }
     },
   },

@@ -11,12 +11,12 @@ class State(Resource):
     def _get_state_question(self, current_state, end):
         question = render_template(
             f"questions/state-{current_state['state']}.html",
-            html_button=self._get_html_button(current_state, end),
             end=end
         )
 
         return question
 
+    """
     def _get_html_button(self, current_state, end):
         button = ''
         if current_state['state'] != 0:
@@ -26,6 +26,7 @@ class State(Resource):
         else:
             button += '<button id="next" type="submit">next</button>'
         return button
+    """
 
     def _get_state_question_or_error(self, state, end):
         try:
@@ -34,6 +35,8 @@ class State(Resource):
             return resp
         except IndexError:
             return {"message": "index out-of-bound"}, 409
+        except Exception as e:
+            return {"message": str(e)}, 400
 
     def _update_state(self, current_state, data, user_uuid):
         if data['type'] == 'next':
@@ -54,7 +57,7 @@ class State(Resource):
         r.set(f"{user_uuid}:user", json.dumps(current_state))
 
     def _is_end_state(self, current_state):
-        if current_state['state'] == 1:
+        if current_state['state'] == 2:
             return True
         else:
             return False

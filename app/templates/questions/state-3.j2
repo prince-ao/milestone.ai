@@ -1,0 +1,228 @@
+{% extends "questions/base.html" %}
+{% from "questions/macros.html" import gen_buttons %}
+
+{% block content %}
+        <h1 class="text-center text-responsive-header">CS Classes Taken</h1>
+    <div class="flex flex-col">
+        <div class="text-responsive-subheader">Core classes</div>
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC126">
+            CSC 126 - Introduction to Computer Science
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC211">
+            CSC 211 - Intermediate Programming 
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC220">
+            CSC 220 - Computer Organization
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC221">
+            CSC 221 - Networking and Security
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC228">
+            CSC 228 - Discrete Mathematical Structures for Computer Science
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC305">
+            CSC 305 - Operating Systems Programming Laboratory 
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC326">
+            CSC 326 - Data Structures
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC330">
+            CSC 330 - Object-Oriented Software Design
+        </label>
+
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC332">
+            CSC 332 - Operating Systems I
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC315">
+            CSC 315 - Introduction to Database Systems
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC346">
+            CSC 346 - Digital Systems Design
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC347">
+            CSC 347 - Digital Systems Laboratory
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC382">
+            CSC 382 - Analysis of Algorithms
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC430">
+            CSC 430 - Software Engineering
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC446">
+            CSC 446 - Computer Architecture
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC490">
+            CSC 490 - Seminar in Computer Science
+        </label>
+
+
+        <!-- ELECTIVES -->
+        <div class="text-responsive-subheader">Electives</div>
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC223">
+            CSC 223 - Cybersecurity Fundamentals
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC225">
+            CSC 225 - Introduction to Web Development and the Internet
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC226">
+            CSC 227 - Introductory Computer Game Programming
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC227">
+            CSC 226 - Web Database Applications
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC229">
+            CSC 229 - Introduction to High Performance Computing
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC235">
+            CSC 235 - Robotic Explorations
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC245">
+            CSC 245 - Introduction to Data Science
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC250">
+            CSC 250 - Serious Game Development
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC412">
+            CSC 412 - Machine Learning and Knowledge Discovery
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC420">
+            CSC 420 - Concepts of Programming Languages
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC421">
+            CSC 421 - Internet Data Communications and Security
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC424">
+            CSC 424 - Advanced Database Systems
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC425">
+            CSC 425 - Shared Memroy Parallel Computing
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC426">
+            CSC 426 - Applied Cryptography
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC427">
+            CSC 427 - Advanced Computer Game Programming
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC429">
+            CSC 429 - Advanced High Performance Computing
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC432">
+            CSC 432 - Operating Systems II
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC434">
+            CSC 434 - Compiler Construction
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC435">
+            CSC 435 - Advanced Data Communications
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC436">
+            CSC 436 - Modern Web Development
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC438">
+            CSC 438 - Mobile Application Development
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC470">
+            CSC 470 - Introductory Computer Graphics
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC475">
+            CSC 475 - Image Processing in Computer Science
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC480">
+            CSC 480 - Artificial Intelligence
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC482">
+            CSC 482 - Discrete Simulation
+        </label>
+
+        <label>
+            <input type="checkbox" name="classes_taken" value="CSC484">
+            CSC 484 - Theory of Computation
+        </label>
+</div>
+{% endblock %}
+
+{% block button %}
+<button id="previous" type="submit">previous</button>
+<button id="next" type="submit">next</button>
+{% endblock %}
+
