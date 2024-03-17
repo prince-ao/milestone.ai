@@ -40,12 +40,32 @@ class State(Resource):
             match current_state['state']:
                 case 1:
                     if data['first_name'] and data['last_name']:
-                        current_state['first_name'] = data['first_name']
-                        current_state['last_name'] = data['last_name']
+                        current_state["personal_info"]['first_name'] = data['first_name']
+                        current_state["personal_info"]['last_name'] = data['last_name']
                     else:
                         raise ValueError("missing first_name or last_name.")
+                case 3:
+                    if data['classes_taken']:
+                        current_state["academic_info"]['classes_taken'] = data['classes_taken']
+                    else:
+                        raise ValueError("missing classes taken.")
+
+                case 4:
+                    if data["graduation_semester"]:
+                        current_state["academic_info"]["graduation_semester"] = data["graduation_semester"] 
+                    else:
+                        raise ValueError("missing graduation semester.")
+                case 5:
+                    if data["gpa"]:
+                        current_state["academic_info"]["gpa"] = data["gpa"]
+                    else:
+                        raise ValueError("missing gpa.")
+
+            # test
+            print("\nCURRENT STATE\n--------------------\n", current_state, "\n--------------------\n")
 
             current_state['state'] = current_state['state'] + 1
+
         elif data['type'] == 'previous' and current_state['state'] > 0:
             current_state['state'] = current_state['state'] - 1
         elif data['type'] == 'done':
