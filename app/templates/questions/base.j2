@@ -12,8 +12,8 @@
     {% endblock %}
     <li>
       {% block button %}
-        <button id="previous" type="submit">previous</button>
-        <button id="next" type="submit">next</button>
+        <button @click="submitAction = 'previous'" id="previous" type="submit">previous</button>
+        <button @click="submitAction = 'next'" id="next" type="submit">next</button>
       {% endblock %}
     </li>
   <ul>

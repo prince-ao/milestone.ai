@@ -68,14 +68,13 @@ questions = [
 
 @form_ns.route('/state')
 class State(Resource):
-    _is_end = False
 
     def _get_state_question(self, current_state, end):
         if current_state['state'] >= DYNAMIC_STATE_START:
             if current_state['state'] == DYNAMIC_STATE_START:
                 question = render_template("questions/dynamic/d-state-0.j2")
             else:
-                print(current_state)
+                # print(current_state)
                 question = render_template(
                     "questions/dynamic/d-state-1.j2",
                     question=current_state['career_info']['asked_questions'][current_state['career_info']['meta_data']['current_question'] - 1],  # noqa
@@ -106,6 +105,11 @@ class State(Resource):
         else:
             button += '<button id="next" type="submit">next</button>'
         return button
+        Next Features:
+            - store answer for dynamic route
+            - display previously stored questions
+            - store all state answers
+            - style stuff
     """
 
     def _update_state(self, current_state, data, user_uuid):
@@ -117,8 +121,8 @@ class State(Resource):
                 else:
                     raise ValueError("missing first_name or last_name.")
             elif current_state['state'] >= DYNAMIC_STATE_START:
-                print('1')
-                print(current_state)
+                # print('1')
+                # print(current_state)
                 # update the question index
                 current_state['career_info']['meta_data']['semester_question_index'] = current_state['career_info']['meta_data']['semester_question_index'] + 1  # noqa
 
@@ -128,14 +132,12 @@ class State(Resource):
                 semester_question_index = current_state['career_info']['meta_data']['semester_question_index']
                 asked_questions = current_state['career_info']['asked_questions']
 
+                current_state['career_info']['meta_data']['current_question'] = current_question + 1
+
                 # if the we need a new question
                 if len(asked_questions) <= current_question:
-                    current_state['career_info']['meta_data']['current_question'] = current_question + 1
-                    print("2")
-                    print(current_state)
-
-                    if semester_index == len(questions) - 1 and semester_question_index == len(questions[semester_index]) - 1:
-                        self._is_end = True
+                    if semester_index == len(questions) - 1 and semester_question_index == len(questions[semester_index]) - 2:
+                        current_state['is_end'] = True
                     if len(questions[semester_index]) == semester_question_index:
                         current_state['career_info']['meta_data']['semester_index'] = semester_index + 1
                         current_state['career_info']['meta_data']['semester_question_index'] = 0
@@ -157,10 +159,11 @@ class State(Resource):
         r.set(f"{user_uuid}:user", json.dumps(current_state))
 
     def _is_end_state(self, current_state):
+
         if current_state['state'] >= 13:
             return True
         else:
-            return self._is_end
+            return current_state['is_end']
 
     def get(self):
         user_uuid = request.cookies.get(USER_COOKIE_KEY)
@@ -177,6 +180,8 @@ class State(Resource):
         current_state = json.loads(response.decode('utf-8'))
 
         end = self._is_end_state(current_state)
+
+        # print(end)
 
         return self._get_state_question_or_error(current_state, end)
 
@@ -201,5 +206,7 @@ class State(Resource):
             return {"message": err}, 400
 
         end = self._is_end_state(current_state)
+
+        # print(end)
 
         return self._get_state_question_or_error(current_state, end)

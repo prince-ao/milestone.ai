@@ -20,6 +20,7 @@ def get_to_know_you():
         resp.set_cookie(USER_COOKIE_KEY, user_uuid)
         initial_form_state = {
             "state": 0,
+            "is_end": False,
             "personal_info": {
                 "first_name": "",
                 "last_name": ""
