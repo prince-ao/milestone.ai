@@ -1,5 +1,4 @@
-{% extends "questions/base.html" %}
-{% from "questions/macros.html" import gen_buttons %}
+{% extends "questions/base.j2" %}
 
 {% block content %}
 <li>
@@ -13,10 +12,3 @@
   >
 </li>
 {% endblock %}
-
-{% block button %}
-<button id="previous" type="submit">previous</button>
-<button id="next" type="submit">next</button>
-{% endblock %}
-
-

@@ -3,6 +3,7 @@
   hx-post="/form/state"
   hx-swap="outerHTML"
   hx-ext='json-enc'
+  x-data="{ submitAction: 'next' }"
   class="animate-appear"
   {% endblock %}
   >
@@ -11,6 +12,8 @@
     {% endblock %}
     <li>
       {% block button %}
+        <button id="previous" type="submit">previous</button>
+        <button id="next" type="submit">next</button>
       {% endblock %}
     </li>
   <ul>

@@ -1,0 +1,26 @@
+{% extends "questions/base.j2" %}
+
+{% block content %}
+<li>
+  <fieldset>
+    <legend>{{ question }}</legend>
+
+    <div>
+      <input type="radio" id="yes" name="selection" value="yes" required />
+      <label for="huey">Yes</label>
+    </div>
+
+    <div>
+      <input type="radio" id="no" name="selection" value="no" />
+      <label for="no">No</label>
+    </div>
+  </fieldset>
+</li>
+{% endblock %}
+
+{% if is_end %}
+{% block button %}
+<button id="previous" type="button">previous</button>
+<button id="done" type="button">done</button>
+{% endblock %}
+{% endif %}

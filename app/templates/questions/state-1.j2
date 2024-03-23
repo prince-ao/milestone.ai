@@ -1,4 +1,4 @@
-{% extends "questions/base.html" %}
+{% extends "questions/base.j2" %}
 
 {% block content %}
 <li>
@@ -8,7 +8,7 @@
     type="text"
     id="first_name"
     name="first_name"
-    required
+    :required="submitAction === 'next'"
   >
 </li>
 <li>
@@ -18,12 +18,7 @@
     type="text"
     id="last_name"
     name="last_name"
-    required
+    :required="submitAction === 'next'"
   >
 </li>
-{% endblock %}
-
-{% block button %}
-<button id="previous" type="submit">previous</button>
-<button id="next" type="submit">next</button>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.j2" %}
 
 {% block script %}
 <script src="//unpkg.com/alpinejs" defer></script>
@@ -6,6 +6,7 @@
 <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
 <script defer>
   htmx.on('htmx:beforeSend', function (evt) {
+    console.log(evt)
     evt.detail.requestConfig.parameters.type = evt.detail.requestConfig.triggeringEvent.submitter.id
   })
 </script>

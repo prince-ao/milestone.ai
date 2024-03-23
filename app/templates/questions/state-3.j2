@@ -1,10 +1,9 @@
-{% extends "questions/base.html" %}
-{% from "questions/macros.html" import gen_buttons %}
+{% extends "questions/base.j2" %}
 
 {% block content %}
-        <h1 class="text-center text-responsive-header">CS Classes Taken</h1>
+    <h1 class="text-center text-responsive-header">CS Classes Taken</h1>
     <div class="flex flex-col">
-        <div class="text-responsive-subheader">Core classes</div>
+        <div class="">Core classes</div>
         <label>
             <input type="checkbox" name="classes_taken" value="CSC126">
             CSC 126 - Introduction to Computer Science
@@ -172,7 +171,7 @@
         <label>
             <input type="checkbox" name="classes_taken" value="CSC432">
             CSC 432 - Operating Systems II
-        </label>
+        r</label>
 
         <label>
             <input type="checkbox" name="classes_taken" value="CSC434">
@@ -221,8 +220,4 @@
 </div>
 {% endblock %}
 
-{% block button %}
-<button id="previous" type="submit">previous</button>
-<button id="next" type="submit">next</button>
-{% endblock %}
 
