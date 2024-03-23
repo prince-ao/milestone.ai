@@ -21,9 +21,7 @@
 {% block button %}
 {% if is_end %}
 <button @click="submitAction = 'previous'" id="previous" type="submit">previous</button>
-<a href='/confirmation'>
-  <button @click="submitAction = 'done'" id="done" type="button">done</button>
-</a>
+<button @click="submitAction = 'done'" id="done" type="submit">done</button>
 {% else %}
 <button @click="submitAction = 'previous'" id="previous" type="submit">previous</button>
 <button @click="submitAction = 'next'" id="next" type="submit">next</button>

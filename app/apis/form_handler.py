@@ -106,10 +106,12 @@ class State(Resource):
             button += '<button id="next" type="submit">next</button>'
         return button
         Next Features:
-            - store answer for dynamic route
-            - display previously stored questions
-            - store all state answers
+            - display answers previously stored questions (for dynamic routes)
+            - store previous answers (for all routes)
+            - display previous answers (for all routes)
+            - handle route authorization
             - style stuff
+                - fix form
     """
 
     def _update_state(self, current_state, data, user_uuid):
@@ -131,6 +133,14 @@ class State(Resource):
                 semester_index = current_state['career_info']['meta_data']['semester_index']
                 semester_question_index = current_state['career_info']['meta_data']['semester_question_index']
                 asked_questions = current_state['career_info']['asked_questions']
+                answers = current_state['career_info']["answers"]
+
+                if current_question > 0:
+                    if len(asked_questions) <= current_question:
+                        answers.append(data['selection'])
+                    else:
+                        answers[current_question - 1] = data['selection']
+                    current_state['career_info']["answers"] = answers
 
                 current_state['career_info']['meta_data']['current_question'] = current_question + 1
 
@@ -154,7 +164,14 @@ class State(Resource):
                 current_state['career_info']['meta_data']['current_question'] = current_state['career_info']['meta_data']['current_question'] - 1
             current_state['state'] = current_state['state'] - 1
         elif data['type'] == 'done':
-            ...
+            current_question = current_state['career_info']['meta_data']['current_question']
+            answers = current_state['career_info']["answers"]
+            if current_question > len(answers):
+                answers.append(data['selection'])
+            else:
+                answers[current_question - 1] = data['selection']
+            current_state['career_info']["answers"] = answers
+            print(current_state)
 
         r.set(f"{user_uuid}:user", json.dumps(current_state))
 
@@ -207,6 +224,9 @@ class State(Resource):
 
         end = self._is_end_state(current_state)
 
-        # print(end)
+        if data['type'] == 'done':
+            resp = make_response({}, 200)
+            resp.headers['HX-Redirect'] = '/confirmation'
+            return resp
 
         return self._get_state_question_or_error(current_state, end)
