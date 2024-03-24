@@ -75,12 +75,30 @@ class State(Resource):
                 question = render_template("questions/dynamic/d-state-0.j2")
             else:
                 # print(current_state)
-                question = render_template(
-                    "questions/dynamic/d-state-1.j2",
-                    question=current_state['career_info']['asked_questions'][current_state['career_info']['meta_data']['current_question'] - 1],  # noqa
-                    is_end=end
+                try:
+                    current_index = current_state['career_info']['meta_data']['current_question'] - 1
+                    answer = current_state['career_info']['answers'][current_index]
+                    if answer == 'yes':
+                        question = render_template(
+                            "questions/dynamic/d-state-1.j2",
+                            question=current_state['career_info']['asked_questions'][current_index],  # noqa
+                            is_end=end,
+                            yes_checked="checked"
+                        )
+                    else:
+                        question = render_template(
+                            "questions/dynamic/d-state-1.j2",
+                            question=current_state['career_info']['asked_questions'][current_index],  # noqa
+                            is_end=end,
+                            no_checked="checked"
+                        )
+                except Exception:
+                    question = render_template(
+                        "questions/dynamic/d-state-1.j2",
+                        question=current_state['career_info']['asked_questions'][current_index],  # noqa
+                        is_end=end,
+                    )
 
-                )
         else:
             question = render_template(
                 f"questions/state-{current_state['state']}.j2")
