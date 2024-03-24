@@ -2,6 +2,7 @@ from flask import request, make_response, render_template
 from flask_restx import Resource, Namespace
 from ..redis_instance import r, USER_COOKIE_KEY
 import json
+import datetime
 
 form_ns = Namespace('form', description="Operations related to form handling")
 
@@ -70,11 +71,11 @@ questions = [
 class State(Resource):
 
     def _get_state_question(self, current_state, end):
-        if current_state['state'] >= DYNAMIC_STATE_START:
-            if current_state['state'] == DYNAMIC_STATE_START:
+        current_state_number = current_state['state']
+        if current_state_number >= DYNAMIC_STATE_START:
+            if current_state_number == DYNAMIC_STATE_START:
                 question = render_template("questions/dynamic/d-state-0.j2")
             else:
-                # print(current_state)
                 try:
                     current_index = current_state['career_info']['meta_data']['current_question'] - 1
                     answer = current_state['career_info']['answers'][current_index]
@@ -99,9 +100,37 @@ class State(Resource):
                         is_end=end,
                     )
 
+        elif current_state_number == 1:
+            question = render_template(
+                "questions/state-1.j2",
+                first_name=current_state['personal_info']['first_name'],
+                last_name=current_state['personal_info']['last_name']
+            )
+        elif current_state_number == 3:
+            question = render_template(
+                "questions/state-3.j2",
+                classes_taken=current_state['academic_info']['classes_taken']
+            )
+        elif current_state_number == 4:
+            current_year = datetime.datetime.now().year
+            semester_range = []
+            for year in range(current_year, current_year + 7):
+                semester_range.append(f"spring {year}")
+                semester_range.append(f"fall {year}")
+            question = render_template(
+                "questions/state-4.j2",
+                semester_range=semester_range,
+                graduation_semester=current_state['academic_info']['graduation_semester']
+            )
+        elif current_state_number == 5:
+            question = render_template(
+                "questions/state-5.j2",
+                current_gpa=float(current_state['academic_info']['gpa'])
+            )
         else:
             question = render_template(
-                f"questions/state-{current_state['state']}.j2")
+                f"questions/state-{current_state_number}.j2"
+            )
 
         return question
 
@@ -124,26 +153,31 @@ class State(Resource):
             button += '<button id="next" type="submit">next</button>'
         return button
         Next Features:
-            - display answers previously stored questions (for dynamic routes)
-            - store previous answers (for all routes)
-            - display previous answers (for all routes)
+            - fix the initial semester start
+            - implement confirmation page
             - handle route authorization
             - style stuff
                 - fix form
     """
 
     def _update_state(self, current_state, data, user_uuid):
-        if data['type'] == 'next':
-            if current_state['state'] == 1:
+        current_state_number = current_state['state']
+        current_state_type = data['type']
+
+        if current_state_type == 'next':
+            if current_state_number == 1:
                 if data['first_name'] and data['last_name']:
                     current_state['personal_info']['first_name'] = data['first_name']
                     current_state['personal_info']['last_name'] = data['last_name']
                 else:
                     raise ValueError("missing first_name or last_name.")
-            elif current_state['state'] >= DYNAMIC_STATE_START:
-                # print('1')
-                # print(current_state)
-                # update the question index
+            elif current_state_number == 3:
+                current_state['academic_info']['classes_taken'] = data['classes_taken']
+            elif current_state_number == 4:
+                current_state['academic_info']['graduation_semester'] = data['graduation_semester']
+            elif current_state_number == 5:
+                current_state['academic_info']['gpa'] = data['gpa']
+            elif current_state_number >= DYNAMIC_STATE_START:
                 current_state['career_info']['meta_data']['semester_question_index'] = current_state['career_info']['meta_data']['semester_question_index'] + 1  # noqa
 
                 # get all required info
@@ -176,12 +210,12 @@ class State(Resource):
                         questions[semester_index][semester_question_index])
                     current_state['career_info']['asked_questions'] = asked_questions
 
-            current_state['state'] = current_state['state'] + 1
-        elif data['type'] == 'previous' and current_state['state'] > 0:
+            current_state['state'] = current_state_number + 1
+        elif current_state_type == 'previous' and current_state['state'] > 0:
             if current_state['career_info']['meta_data']['current_question'] > 0:
                 current_state['career_info']['meta_data']['current_question'] = current_state['career_info']['meta_data']['current_question'] - 1
-            current_state['state'] = current_state['state'] - 1
-        elif data['type'] == 'done':
+            current_state['state'] = current_state_number - 1
+        elif current_state_type == 'done':
             current_question = current_state['career_info']['meta_data']['current_question']
             answers = current_state['career_info']["answers"]
             if current_question > len(answers):

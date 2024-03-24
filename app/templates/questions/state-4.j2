@@ -2,12 +2,11 @@
 
 {% block content %}
 <li>
-  <label for="graduation_semester">Graduation Semester:</label>
-  <input
-    placeholder="year..."
-    type="text"
-    id="graduation_semester"
-    name="graduation_semester"
-  >
+  <label for="graduation_semester">Graduation semester:</label>
+  <select name="graduation_semester" id="graduation_semester" :required="submitAction === 'next'">
+    {% for semester in semester_range %}
+      <option value="{{ semester }}" {{ 'selected' if semester == graduation_semester }}>{{ semester }}</option>
+    {% endfor %}
+  </select>
 </li>
 {% endblock %}

@@ -6,9 +6,12 @@
   <input
     placeholder="gpa"
     type="number"
+    min="0"
+    max="4"
     step="0.01"
     id="gpa"
     name="gpa"
+    value="{{ current_gpa }}"
   >
 </li>
 {% endblock %}
