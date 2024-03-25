@@ -7,6 +7,7 @@ import datetime
 form_ns = Namespace('form', description="Operations related to form handling")
 
 DYNAMIC_STATE_START = 8
+DYNAMIC_END_STATE = 13
 
 questions = [
     [
@@ -229,7 +230,7 @@ class State(Resource):
 
     def _is_end_state(self, current_state):
 
-        if current_state['state'] >= 13:
+        if current_state['state'] >= DYNAMIC_END_STATE:
             return True
         else:
             return current_state['is_end']

@@ -1,5 +1,6 @@
-from flask import render_template, make_response, request
+from flask import render_template, make_response, request, redirect
 from app.main import bp
+from app.apis.form_handler import DYNAMIC_END_STATE
 from ..redis_instance import r, USER_COOKIE_KEY
 import uuid
 import json
@@ -54,7 +55,15 @@ def get_to_know_you():
             return {"message": "internal error"}, 500
 
     else:
-        ...
+        try:
+            response = r.get(f"{user_uuid}:user")
+        except Exception:
+            return {"message": "internal error"}, 500
+
+        current_state = json.loads(response.decode('utf-8'))
+
+        if current_state['state'] >= DYNAMIC_END_STATE:
+            resp = redirect('/confirmation')
 
     return resp
 

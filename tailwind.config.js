@@ -12,6 +12,10 @@ module.exports = {
       animation: {
         appear: 'appear 1s ease-in-out forwards'
       },
+      backgroundColor: {
+	peach: '#fce9d9',
+	orange: '#f79546'
+      },
       keyframes: {
         appear: {
           'from': {

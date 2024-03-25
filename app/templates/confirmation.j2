@@ -1,1 +1,68 @@
 {% extends "base.j2" %}
+
+{% block content %}
+<main class="flex justify-center items-center min-h-lvh">
+  <div>
+    <table class="table-auto border-collapse border border-gray-300 w-full text-sm">
+      <thead>
+        <tr class="bg-orange text-white">
+          <th class="border border-gray-300 p-2 text-left">Recommended Career Milestones</th>
+          <th class="border border-gray-300 p-2 text-left">Done</th>
+        </tr>
+      </thead>
+      
+
+      <tbody>
+        <tr class="bg-peach">
+          <td class="border border-gray-300 p-2">
+            Create a Handshake Account with Career Services
+          </td>
+          <td class="border border-gray-300 p-2">
+            <label for="check1" class="flex justify-center items-center">
+              <input id="check1" type="checkbox"/>
+            </label>
+          </td>
+        </tr>
+        <tr >
+          <td class="border border-gray-300 p-2">
+            Create a Draft Resume
+          </td>
+          
+          <td class="border border-gray-300 p-2">
+            <label for="check2" class="flex justify-center items-center">
+              <input id="check2" type="checkbox"/>
+            </label>
+          </td>
+        </tr>
+        <tr class="bg-peach">
+          <td class="border border-gray-300 p-2">
+            Review Major Required Courses
+          </td>
+          
+          <td class="border border-gray-300 p-2">
+            <label for="check3" class="flex justify-center items-center">
+              <input id="check3" type="checkbox"/>
+            </label>
+          </td>
+        </tr>
+        <tr >
+          <td class="border border-gray-300 p-2">
+            Join a Student Club
+          </td>
+
+          <td class="border border-gray-300 p-2">
+            <label for="check4" class="flex justify-center items-center">
+              <input id="check4" type="checkbox"/>
+            </label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <a href="/chat">
+      <button class="mt-8 bg-green-400 rounded-xl p-2 hover:bg-green-500 text-white font-bold">Continue</button>
+    </a>
+  </div>
+</main>
+
+{% endblock %}
