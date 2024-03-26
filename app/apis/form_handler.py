@@ -9,6 +9,9 @@ form_ns = Namespace('form', description="Operations related to form handling")
 DYNAMIC_STATE_START = 8
 DYNAMIC_END_STATE = 13
 
+upgrade_courses = ['CSC211', 'CSC326', 'CSC330',
+                   'CSC346', 'CSC382', 'CSC446', 'CSC490']  # upgrade courses upgrade the user's question set to the respective index
+
 questions = [
     [
         "Have you created a Handshake account with Career Services?",
@@ -52,17 +55,17 @@ questions = [
         "Did you participate in any virtual work experience programs?"
     ],
     [
-        "Have you utilized Career & Professional Development events to enhance job search skills?"
-        "Have you met with a career advisor to review your resume, portfolio, and cover letter?"
-        "Did you inform your network about your job search?"
-        "Are you actively applying for jobs and tracking your applications?"
+        "Have you utilized Career & Professional Development events to enhance job search skills?",
+        "Have you met with a career advisor to review your resume, portfolio, and cover letter?",
+        "Did you inform your network about your job search?",
+        "Are you actively applying for jobs and tracking your applications?",
         "Are you considering graduate school?"
     ],
     [
-        "Did you apply for internship prep programs like CUNY Tech Prep?"
-        "Have you initiated a side project, like a web or mobile app?"
-        "Are you contributing to open source projects?"
-        "Have you been involved in local hackathons or coding events?"
+        "Did you apply for internship prep programs like CUNY Tech Prep?",
+        "Have you initiated a side project, like a web or mobile app?",
+        "Are you contributing to open source projects?",
+        "Have you been involved in local hackathons or coding events?",
         "Are you a member of any student professional organizations?"
     ],
 ]
@@ -173,7 +176,15 @@ class State(Resource):
                 else:
                     raise ValueError("missing first_name or last_name.")
             elif current_state_number == 3:
+                if not isinstance(data['classes_taken'], list):
+                    data['classes_taken'] = [data['classes_taken']]
+
                 current_state['academic_info']['classes_taken'] = data['classes_taken']
+
+                for i, upgrade_course in enumerate(upgrade_courses):
+                    if upgrade_course in data['classes_taken']:
+                        current_state['career_info']['meta_data']['semester_index'] = i + 1
+                        break
             elif current_state_number == 4:
                 current_state['academic_info']['graduation_semester'] = data['graduation_semester']
             elif current_state_number == 5:
@@ -199,16 +210,17 @@ class State(Resource):
 
                 # if the we need a new question
                 if len(asked_questions) <= current_question:
-                    if semester_index == len(questions) - 1 and semester_question_index == len(questions[semester_index]) - 2:
+                    if semester_index == len(questions) - 1 and semester_question_index == len(questions[semester_index]):
                         current_state['is_end'] = True
-                    if len(questions[semester_index]) == semester_question_index:
+                    if len(questions[semester_index]) == semester_question_index - 1:
                         current_state['career_info']['meta_data']['semester_index'] = semester_index + 1
                         current_state['career_info']['meta_data']['semester_question_index'] = 0
 
+                    # print(current_state)
                     semester_index = current_state['career_info']['meta_data']['semester_index']
                     semester_question_index = current_state['career_info']['meta_data']['semester_question_index']
                     asked_questions.append(
-                        questions[semester_index][semester_question_index])
+                        questions[semester_index][semester_question_index - 1])
                     current_state['career_info']['asked_questions'] = asked_questions
 
             current_state['state'] = current_state_number + 1
