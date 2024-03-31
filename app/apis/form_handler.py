@@ -12,6 +12,62 @@ DYNAMIC_END_STATE = 13
 upgrade_courses = ['CSC211', 'CSC326', 'CSC330',
                    'CSC346', 'CSC382', 'CSC446', 'CSC490']  # upgrade courses upgrade the user's question set to the respective index
 
+career_readiness = [
+    [
+        "Create a Handshake Account with Career Services.",
+        "Create a Draft Resume.",
+        "Review Major Required Courses.",
+        "Join a Student Club."
+    ],
+    [
+        "Create a LinkedIn Account.",
+        "Explore Career Options for Computer Science Majors.",
+        "Attend a Hackathon.",
+        "Create a GitHub Account.",
+        "Attend Professional Development Workshops and seminars."
+    ],
+    [
+        "Develop a Network of Contact Through LinkedIn.",
+        "Update Your Resume.",
+        "Identify a Mentor with Whom You Can Check-in Periodically.",
+        "Post to Your GitHub Account.",
+        "Attend Professional Development Workshops."
+    ],
+    [
+        "Contribute to open source projects.",
+        "Apply for internship prep programs (CUNY Tech Prep, TTP, ...).",
+        "Launch a side project (web app or mobile).",
+        "Participate in local hackathons or coding events to collaborate on code and meet other students.",
+        "Join student professional organizations."
+    ],
+    [
+        "Create an effective resume.",
+        "Utilize LinkedIn to build your professional network: Start marketing yourself and building relationships on LinkedIn.",
+        "Work in at least one software internship position by summer of Junior year",
+        "Consider self-guided learning outside the classroom",
+        "Attend career fairs, local meetings, conferences and seminars."
+    ],
+    [
+        "Acquire technical internship interview readiness (Practice, practice, practice)",
+        "Acquire confidence developing in one industry tech stack beyond whats taught in the classroom",
+        "Work in at least one software internship position by summer of Junior year",
+        "Consider self-guided learning outside the classroom",
+        "Participate in a virtual work experience program"
+    ],
+    [
+        "Take advantage of events offered by Career & Professional Development to perfect your job search, interviewing and employability skills",
+        "Schedule an appointment with the career advisor to go over your final resume, portfolio, cover letter, etc",
+        "Alert contacts in your network to remind them you are in the process of searching for a job",
+        "Apply, apply and apply for more jobs. Record your progress and remember to follow-up on your applications"
+    ],
+    [
+        "Apply, apply and apply for more jobs. Record your progress and remember to follow-up on your applications",
+        "Arrange for references. These can be professors, connections, internship positions or others who know your interests, abilities, skills and work habits",
+        "If appropriate, complete the process of applying to graduate school",
+        "Take the mandatory Senior Exit Survey"
+    ]
+]
+
 questions = [
     [
         "Have you created a Handshake account with Career Services?",
@@ -59,14 +115,12 @@ questions = [
         "Have you met with a career advisor to review your resume, portfolio, and cover letter?",
         "Did you inform your network about your job search?",
         "Are you actively applying for jobs and tracking your applications?",
-        "Are you considering graduate school?"
     ],
     [
-        "Did you apply for internship prep programs like CUNY Tech Prep?",
-        "Have you initiated a side project, like a web or mobile app?",
-        "Are you contributing to open source projects?",
-        "Have you been involved in local hackathons or coding events?",
-        "Are you a member of any student professional organizations?"
+        "Are you actively applying for jobs and tracking your applications?",
+        "Did you arrange references?",
+        "If appropriate, have you complete the process of applying to graduate school?",
+        "Have you taken the Senior Exit Survey?"
     ],
 ]
 
@@ -80,27 +134,28 @@ class State(Resource):
             if current_state_number == DYNAMIC_STATE_START:
                 question = render_template("questions/dynamic/d-state-0.j2")
             else:
+                current_index = current_state['career_info']['meta_data']['current_question'] - 1
+                _question = current_state['career_info']['asked_questions'][current_index][0]
                 try:
-                    current_index = current_state['career_info']['meta_data']['current_question'] - 1
                     answer = current_state['career_info']['answers'][current_index]
                     if answer == 'yes':
                         question = render_template(
                             "questions/dynamic/d-state-1.j2",
-                            question=current_state['career_info']['asked_questions'][current_index],  # noqa
+                            question=_question,
                             is_end=end,
                             yes_checked="checked"
                         )
                     else:
                         question = render_template(
                             "questions/dynamic/d-state-1.j2",
-                            question=current_state['career_info']['asked_questions'][current_index],  # noqa
+                            question=_question,
                             is_end=end,
                             no_checked="checked"
                         )
                 except Exception:
                     question = render_template(
                         "questions/dynamic/d-state-1.j2",
-                        question=current_state['career_info']['asked_questions'][current_index],  # noqa
+                        question=_question,
                         is_end=end,
                     )
 
@@ -157,7 +212,6 @@ class State(Resource):
             button += '<button id="next" type="submit">next</button>'
         return button
         Next Features:
-            - fix the initial semester start
             - implement confirmation page
             - handle route authorization
             - style stuff
@@ -176,14 +230,18 @@ class State(Resource):
                 else:
                     raise ValueError("missing first_name or last_name.")
             elif current_state_number == 3:
-                if not isinstance(data['classes_taken'], list):
-                    data['classes_taken'] = [data['classes_taken']]
+                try:
+                    if not isinstance(data['classes_taken'], list):
+                        data['classes_taken'] = [data['classes_taken']]
 
-                current_state['academic_info']['classes_taken'] = data['classes_taken']
+                    current_state['academic_info']['classes_taken'] = data['classes_taken']
+                except Exception:
+                    current_state['academic_info']['classes_taken'] = []
 
                 for i, upgrade_course in enumerate(upgrade_courses):
-                    if upgrade_course in data['classes_taken']:
+                    if upgrade_course in current_state['academic_info']['classes_taken']:
                         current_state['career_info']['meta_data']['semester_index'] = i + 1
+                        current_state['career_info']['meta_data']['semester_index_start'] = i + 1
                         break
             elif current_state_number == 4:
                 current_state['academic_info']['graduation_semester'] = data['graduation_semester']
@@ -219,14 +277,24 @@ class State(Resource):
                     # print(current_state)
                     semester_index = current_state['career_info']['meta_data']['semester_index']
                     semester_question_index = current_state['career_info']['meta_data']['semester_question_index']
-                    asked_questions.append(
-                        questions[semester_index][semester_question_index - 1])
+                    asked_questions.append((
+                        questions[semester_index][semester_question_index - 1],
+                        (semester_index, semester_question_index - 1))
+                    )
                     current_state['career_info']['asked_questions'] = asked_questions
 
             current_state['state'] = current_state_number + 1
         elif current_state_type == 'previous' and current_state['state'] > 0:
             if current_state['career_info']['meta_data']['current_question'] > 0:
                 current_state['career_info']['meta_data']['current_question'] = current_state['career_info']['meta_data']['current_question'] - 1
+            if current_state['state'] == DYNAMIC_STATE_START:
+                current_state['career_info']['asked_questions'] = []
+                current_state['career_info']['answers'] = []
+                current_state['career_info']['meta_data']['semester_index'] = 0
+                current_state['career_info']['meta_data']['semester_question_index'] = 0
+                current_state['career_info']['meta_data']['current_question'] = 0
+                current_state['career_info']['meta_data']['semester_index_start'] = 0
+                current_state['is_end'] = False
             current_state['state'] = current_state_number - 1
         elif current_state_type == 'done':
             current_question = current_state['career_info']['meta_data']['current_question']
@@ -236,16 +304,15 @@ class State(Resource):
             else:
                 answers[current_question - 1] = data['selection']
             current_state['career_info']["answers"] = answers
-            print(current_state)
+            current_state['is_end'] = True
 
         r.set(f"{user_uuid}:user", json.dumps(current_state))
 
     def _is_end_state(self, current_state):
-
         if current_state['state'] >= DYNAMIC_END_STATE:
-            return True
-        else:
-            return current_state['is_end']
+            current_state['is_end'] = True
+
+        return current_state['is_end']
 
     def get(self):
         user_uuid = request.cookies.get(USER_COOKIE_KEY)
