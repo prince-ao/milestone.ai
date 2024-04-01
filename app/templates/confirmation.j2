@@ -1,1 +1,60 @@
 {% extends "base.j2" %}
+
+{% block content %}
+<main class="flex justify-center items-center min-h-lvh">
+  <div>
+    {% if milestones|length > 0 %}
+    <table class="table-auto border-collapse border border-gray-300 w-full text-sm">
+      <thead>
+        <tr class="bg-orange text-white">
+          <th class="border border-gray-300 p-2 text-left">Recommended Career Milestones</th>
+          <!--
+          <th class="border border-gray-300 p-2 text-left">Done</th>
+          -->
+        </tr>
+      </thead>
+      
+
+      <tbody>
+        {% for milestone in milestones %}
+        {% if loop.index % 2 == 1 %}
+        <tr class="bg-peach">
+          <td class="border border-gray-300 p-2">
+            {{ milestone }}
+          </td>
+          <!--
+          <td class="border border-gray-300 p-2">
+            <label for="check1" class="flex justify-center items-center">
+              <input id="check1" type="checkbox"/>
+            </label>
+          </td>
+          -->
+        </tr>
+        {% else %}
+        <tr>
+          <td class="border border-gray-300 p-2">
+            {{ milestone }}
+          </td>
+          <!--
+          <td class="border border-gray-300 p-2">
+            <label for="check1" class="flex justify-center items-center">
+              <input id="check1" type="checkbox"/>
+            </label>
+          </td>
+          -->
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>You've completed all career related milestones! 🎉</p>
+    {% endif %}
+
+    <a href="/chat">
+      <button class="mt-8 bg-green-400 rounded-xl p-2 hover:bg-green-500 text-white font-bold">Continue</button>
+    </a>
+  </div>
+</main>
+
+{% endblock %}
