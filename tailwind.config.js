@@ -26,7 +26,8 @@ module.exports = {
         // clamp(minimum, preferred, maximum)
         'responsive-title': 'max(4.5vw, 5.5vh)',
         'responsive-header': 'max(2vw, 2.5vh)',
-        'responsive-subheader': 'max(1.5vw, 2vh)',
+        'responsive-subheader': 'max(1.75vw, 2.25vh)',
+        'responsive-text': 'max(1vw, 1.5vh)',
       }
     },
   },

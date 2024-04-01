@@ -1,5 +1,13 @@
 {% extends "questions/base.j2" %}
 
 {% block content %}
-<h1>State 7: TODO</h1>
+<li>
+  <label for="academic_standing">Academic Standing:</label>
+  <select name="academic_standing" id="academic_standing" :required="submitAction === 'next'">
+    {% for standing in standings%}
+      <option value="{{ standing }}" {{ 'selected' if standing == academic_standing }}>{{ standing }}</option>
+    {% endfor %}
+  </select>
+</li>
 {% endblock %}
+
