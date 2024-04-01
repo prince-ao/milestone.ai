@@ -186,11 +186,34 @@ class State(Resource):
                 "questions/state-5.j2",
                 current_gpa=float(current_state['academic_info']['gpa'])
             )
+        elif current_state_number == 6:
+            question = render_template(
+                "questions/state-6.j2",
+                credits_taken=float(current_state['academic_info']['credits_taken'])
+            )
+        elif current_state_number == 7:
+            current_year = datetime.datetime.now().year
+            standings = [
+                'lower freshman',
+                'upper freshman',
+                'lower sophomore',
+                'upper sophomore',
+                'lower junior',
+                'upper junior',
+                'lower senior',
+                'upper senior',
+            ]
+            question = render_template(
+                "questions/state-7.j2",
+                standings=standings,
+                academic_standing=current_state['academic_info']['academic_standing']
+            )
+
         else:
             question = render_template(
                 f"questions/state-{current_state_number}.j2"
             )
-
+        print(current_state)
         return question
 
     def _get_state_question_or_error(self, state, end):
@@ -247,6 +270,10 @@ class State(Resource):
                 current_state['academic_info']['graduation_semester'] = data['graduation_semester']
             elif current_state_number == 5:
                 current_state['academic_info']['gpa'] = data['gpa']
+            elif current_state_number == 6:
+                current_state['academic_info']['credits_taken'] = data['credits_taken']
+            elif current_state_number == 7:
+                current_state['academic_info']['academic_standing'] = data['academic_standing']
             elif current_state_number >= DYNAMIC_STATE_START:
                 current_state['career_info']['meta_data']['semester_question_index'] = current_state['career_info']['meta_data']['semester_question_index'] + 1  # noqa
 
@@ -257,10 +284,15 @@ class State(Resource):
                 asked_questions = current_state['career_info']['asked_questions']
                 answers = current_state['career_info']["answers"]
 
+                
                 if current_question > 0:
+                    # if its a new question (user didn't go back to a question they already answered)
                     if len(asked_questions) <= current_question:
                         answers.append(data['selection'])
+                    # if we went back and forth we may not need to append since that
+                    # question was already in the state.
                     else:
+                        # add the answer.
                         answers[current_question - 1] = data['selection']
                     current_state['career_info']["answers"] = answers
 

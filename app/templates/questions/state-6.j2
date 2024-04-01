@@ -1,5 +1,18 @@
 {% extends "questions/base.j2" %}
 
 {% block content %}
-<h1>State 6: TODO</h1>
+<h1>Credits Taken</h1>
+<li>
+  <label for="credits_taken">Credits Taken:</label>
+  <input
+    placeholder="credits_taken"
+    type="number"
+    min="0"
+    max="150"
+    step="1"
+    id="credits_taken""
+    name="credits_taken"
+    value="{{ credits_taken }}"
+  >
+</li>
 {% endblock %}

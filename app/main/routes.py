@@ -4,6 +4,7 @@ from app.apis.form_handler import DYNAMIC_END_STATE, career_readiness
 from ..redis_instance import r, USER_COOKIE_KEY
 import uuid
 import json
+import time
 
 
 NUMBER_OF_CONFIRMATION_MILESTONES = 5
@@ -34,7 +35,7 @@ def get_to_know_you():
                 "credits_taken": 0,
                 "graduation_semester": '',
                 "gpa": 0,
-                "classification": "",
+                "academic_standing": "",
             },
             "career_info": {
                 "meta_data": {
@@ -122,3 +123,13 @@ def confirmation():
     print(milestones)
     print(current_state)
     return render_template("confirmation.j2", milestones=milestones)
+
+@bp.get('/chatbot')
+def chatbot():
+    return render_template("chatbot.j2")
+
+@bp.post('/ai-response')
+def ai_response():
+    userInput = request.form['userInput']
+    time.sleep(1)
+    return "<p class='hidden-response'>There are many different kinds of animals that live in China. Tigers and leopards are animals that live in China's forests in the north. In the jungles, monkeys swing in the trees and elephants walk through the brush.</p>"

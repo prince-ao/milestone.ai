@@ -1,0 +1,79 @@
+{% extends "base.j2" %}
+
+{% block script %}
+<!-- Alpine Plugins -->
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+<script src="//unpkg.com/alpinejs" defer></script>
+<script src="https://unpkg.com/htmx.org"></script>
+<script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+{% endblock %}
+
+{% block content %}
+<style>
+  .text-size {
+    font-size: max(1.25vw, 1.75vh);
+  }
+  .chat-container {
+    max-width: 50vw;
+    margin: 50px auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .chat-box {
+    height: 80vh;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #aaa #ccc;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+
+  #user-input {
+    width: 70%;
+    margin: auto;
+    max-height: 400px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .hidden-response {
+    visibility: hidden;
+  }
+  .form-div {
+    position: relative;
+    overflow-y: auto;
+  }
+
+  .submit-prompt-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  .submit-prompt-button:hover {
+    color: gray;
+  }
+
+</style>
+<div class="chat-container">
+  <div id="chat" class="chat-box">
+
+<h1 class="text-center text-[2vw]"> Advisor </h1>
+  </div>
+  
+  <form class="text-center" hx-post="/ai-response" hx-trigger="submit" hx-swap="beforeend" hx-target="#chat">
+    <div class="form-div mx-auto"> 
+    <input type="text" name="userInput" id="user-input" placeholder="Type your message...">
+    <button type="submit" class="submit-prompt-button text-responsive-header">🡪</button>
+    </div>
+  </form>
+</div>
+
+<script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+
+{% endblock %}
