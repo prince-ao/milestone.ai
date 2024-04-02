@@ -5,20 +5,22 @@ import re
 
 # might not need all of the fields, but just there in case. (most important are name, topic, time, instructor)
 class Course:
-    def __init__(self,class_id, name, professor, time, room, instruction_mode, status, course_topic):
+    def __init__(self, class_id, name, professor, time, room, instruction_mode, status, course_topic):
         self.class_id = class_id
         self.name = name
-        self.professor = professor 
-        self.time = time 
-        self.room = room 
-        self.instruction_mode = instruction_mode 
+        self.professor = professor
+        self.time = time
+        self.room = room
+        self.instruction_mode = instruction_mode
         self.status = status
-        self.course_topic = course_topic 
-    
+        self.course_topic = course_topic
+
+
 class InstitutionSelectionTest(BaseCase):
     def test_select_institutions(self):
         # open page
-        self.open("https://globalsearch.cuny.edu/CFGlobalSearchTool/search.jsp")  # Replace URL_of_your_page with the actual URL
+        # Replace URL_of_your_page with the actual URL
+        self.open("https://globalsearch.cuny.edu/CFGlobalSearchTool/search.jsp")
 
         # first page of form ---------------------------------------------------
         # not visible (have to do js script injection (clicks not working properly))
@@ -32,10 +34,9 @@ class InstitutionSelectionTest(BaseCase):
         self.click('input[name="next_btn"]')
         print('it passed?')
 
-
         # second page of form ---------------------------------------------------
 
-        # select computer science courses from drop down 
+        # select computer science courses from drop down
         # select option where value="CMSC" (computer science classes)
         self.select_option_by_value("#subject_ld", "CMSC")
 
@@ -44,7 +45,6 @@ class InstitutionSelectionTest(BaseCase):
 
         # submit form
         self.click('input[name="search_btn_search"]')
-
 
         # Third page (actual class list)
         # switch to beautiful soup (easier for scraping final page)
@@ -59,7 +59,7 @@ class InstitutionSelectionTest(BaseCase):
         classes = {}
         print("length", len(classNames))
 
-        # creating a dict which maps topics -> class name (Data Structures -> CSC326)   
+        # creating a dict which maps topics -> class name (Data Structures -> CSC326)
         # since the html structure is stupid (tables of classes aren't nested under common class title)
         # so i have to derive the class name from the topic for each class.
         for cs_class in classNames:
@@ -73,31 +73,31 @@ class InstitutionSelectionTest(BaseCase):
             class_id = class_id[0:3] + class_id[4:]
             classname = classname.lstrip().rstrip().replace('\xa0', ' ')
 
-            classes[classname] = class_id 
+            classes[classname] = class_id
             # print(class_id)
             # print(classname)
-        
-        print(classes)
 
+        print(classes)
 
         # getting all of the important values in the rows of the tables (section, professor, times, etc.)
 
-        sections = soup.find_all("td", attrs={"data-label": "Section"})  
+        sections = soup.find_all("td", attrs={"data-label": "Section"})
         # get it from hashmap using the course_topic
-        instructors = soup.find_all("td", attrs={"data-label": "Instructor"}) 
+        instructors = soup.find_all("td", attrs={"data-label": "Instructor"})
 
         times = soup.find_all("td", attrs={"data-label": "DaysAndTimes"})
-        
+
         rooms = soup.find_all("td", attrs={"data-label": "Room"})
-        
-        instructionModes = soup.find_all("td", attrs={"data-label": "Instruction Mode"})
+
+        instructionModes = soup.find_all(
+            "td", attrs={"data-label": "Instruction Mode"})
         # figure this out later
         topic = soup.find_all("td", attrs={"data-label": "Course Topic"})
 
         print("LENS", len(sections))
         # testing if all same size
-        print("TRUE?", len(sections) == len(times) == len(instructionModes) == len(instructors) == len(rooms) == len(topic))
-
+        print("TRUE?", len(sections) == len(times) == len(
+            instructionModes) == len(instructors) == len(rooms) == len(topic))
 
         # store a list of the classes
         # the course object has many parameters
@@ -106,7 +106,8 @@ class InstitutionSelectionTest(BaseCase):
         # create object for each class (store in Database later)
         for i in range(len(sections)):
             print(topic[i].get_text())
-            course = Course(sections[i].get_text(), classes[topic[i].get_text()], instructors[i].get_text(), re.sub(r'([AP]M)(Mo|Tu|We|Th|Fr|Sa|Su)', r'\1 \2', times[i].get_text()), rooms[i].get_text(), instructionModes[i].get_text(), True, topic[i].get_text() )
+            course = Course(sections[i].get_text(), classes[topic[i].get_text()], instructors[i].get_text(), re.sub(
+                r'([AP]M)(Mo|Tu|We|Th|Fr|Sa|Su)', r'\1 \2', times[i].get_text()), rooms[i].get_text(), instructionModes[i].get_text(), True, topic[i].get_text())
             ListOfClasses.append(course)
 
         # check
@@ -118,10 +119,15 @@ class InstitutionSelectionTest(BaseCase):
             print(c.room)
             print(c.professor)
             print()
-            
-        # pause 
+
+        # pause
         # while True:
             # pass
+
+
+if __name__ == '__main__':
+    csi = InstitutionSelectionTest()
+    csi.test_select_institutions()
 
 """
 SAMPLE of scraped info

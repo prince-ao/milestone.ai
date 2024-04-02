@@ -212,7 +212,6 @@ class State(Resource):
             button += '<button id="next" type="submit">next</button>'
         return button
         Next Features:
-            - implement confirmation page
             - handle route authorization
             - style stuff
                 - fix form
