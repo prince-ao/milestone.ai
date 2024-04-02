@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-chat_bp = Blueprint('chat', __name__)
+chat_bp = Blueprint('chat', __name__, url_prefix='/chat')
 
 from app.chat import routes  # noqa
