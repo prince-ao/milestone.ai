@@ -11,42 +11,73 @@
 {% block content %}
 <div
   x-data="{
-    prompt: "",
+    prompt: '',
     messages: [],
     handleSubmit() {
       this.messages.push({
         from: 'You',
-        message: this.prompt
+        message: this.prompt,
+        typing: false
       })
     },
+    addAdvisorMessage(message) {
+      let messageObject = {
+        from: 'Advisor',
+        message: message,
+        typing: true,
+        typedMessage: '',
+        typeIndex: 0
+      };
+      this.messages.push(messageObject);
+      this.typeMessage(messageObject);
+    },
+    typeMessage(messageObject, length) {
+      let interval = setInterval(() => {
+        let messagesCopy = this.messages.map(message => ({ ...message }));
+
+        const index = messagesCopy.length - 1
+
+        messagesCopy[index].typedMessage += messageObject.message[messageObject.typeIndex++];
+        if (messageObject.typeIndex >= messageObject.message.length) {
+          clearInterval(interval);
+          messagesCopy[index].typing = false;
+        }
+
+        this.messages = messagesCopy
+      }, 10);
+    },
     init() {
-      document.body.addEventListener('htmx:afterSwap', () => {
-        this.prompt = ""
+      document.body.addEventListener('htmx:beforeSend', () => {
+        this.prompt = ''
       });
+
       document.body.addEventListener('htmx:beforeRequest', (evt) => {
-        if (this.prompt.trim() === "") {
+        if (this.prompt.trim() === '') {
           evt.preventDefault();
         } else {
-          handleSubmit();
+          this.handleSubmit();
         }
+      })
+
+      document.body.addEventListener('htmx:afterRequest', (evt) => {
+        this.addAdvisorMessage(evt.detail.xhr.response);
       })
     }
   }"
-  x-init="
-    init();
-  "
   class="p-4 w-[50vw] my-[50px] mx-auto rounded shadow-xl">
   <div id="chat" class="h-[80vh] overflow-y-scroll border-b-2 border-b-[#ddd] mb-10 pb-10">
     <h1 class="text-center text-[2vw]"> Advisor </h1>
     <div>
-      <template x-for="{from, message} in messages">
-        <li x-text="from"></li>
-        <li x-text="message"></li>
+      <template x-for="value in messages">
+        <li>
+          <span class="font-bold" x-text="value.from + ': '"></span>
+          <span x-text="value.typing ? value.typedMessage : value.message"></span>
+        </li>
       </template>
     </div>
   </div>
   
-  <form class="text-center" hx-post="/chat/ai-response" hx-trigger="submit" hx-swap="beforeend" hx-target="#chat">
+  <form class="text-center" hx-post="/chat/ai-response" hx-trigger="submit" hx-swap="none">
     <div class="relative overflow-y-auto mx-auto"> 
     <input type="text" name="userInput" id="user-input" x-model="prompt" class="w-3/4 m-auto h-10 p-5 border-2 border-[#ddd] rounded" placeholder="Type your message...">
     <button type="submit" class="absolute cursor-pointer hover:text-[gray] text-responsive-header">🡪</button>
