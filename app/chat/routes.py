@@ -1,10 +1,13 @@
-from flask import render_template, request
+from flask import render_template, request, redirect
 from app.chat import chat_bp
 import time
 
 
 @chat_bp.get('/adviser')
 def chatbot():
+    print(str(request.referrer).split('/')[-1])
+    if str(request.referrer).split('/')[-1] != 'confirmation':
+        return redirect('/')
     return render_template("chat.j2")
 
 

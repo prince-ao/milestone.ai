@@ -119,6 +119,4 @@ def confirmation():
             milestones.append(
                 career_readiness[start_semester_index][start_semester_question_index])
 
-    print(milestones)
-    print(current_state)
     return render_template("confirmation.j2", milestones=milestones)
