@@ -1,15 +1,15 @@
 {% extends "questions/base.j2" %}
 
 {% block content %}
-<h1>Credits Taken</h1>
 <li>
   <label for="credits_taken">Credits Taken:</label>
   <input
-    placeholder="credits_taken"
+    placeholder="credits taken"
     type="number"
     min="0"
     max="150"
     step="1"
+    pattern="\d+"
     id="credits_taken""
     name="credits_taken"
     value="{{ credits_taken }}"

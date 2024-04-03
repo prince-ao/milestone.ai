@@ -7,7 +7,7 @@ import datetime
 form_ns = Namespace('form', description="Operations related to form handling")
 
 DYNAMIC_STATE_START = 8
-DYNAMIC_END_STATE = 13
+DYNAMIC_END_STATE = 12
 
 upgrade_courses = ['CSC211', 'CSC326', 'CSC330',
                    'CSC346', 'CSC382', 'CSC446', 'CSC490']  # upgrade courses upgrade the user's question set to the respective index
@@ -189,7 +189,8 @@ class State(Resource):
         elif current_state_number == 6:
             question = render_template(
                 "questions/state-6.j2",
-                credits_taken=float(current_state['academic_info']['credits_taken'])
+                credits_taken=int(
+                    current_state['academic_info']['credits_taken'])
             )
         elif current_state_number == 7:
             current_year = datetime.datetime.now().year
@@ -213,7 +214,7 @@ class State(Resource):
             question = render_template(
                 f"questions/state-{current_state_number}.j2"
             )
-        print(current_state)
+        # print(current_state)
         return question
 
     def _get_state_question_or_error(self, state, end):
@@ -260,10 +261,12 @@ class State(Resource):
                 except Exception:
                     current_state['academic_info']['classes_taken'] = []
 
-                for i, upgrade_course in enumerate(upgrade_courses):
+                for i, upgrade_course in enumerate(reversed(upgrade_courses)):
                     if upgrade_course in current_state['academic_info']['classes_taken']:
-                        current_state['career_info']['meta_data']['semester_index'] = i + 1
-                        current_state['career_info']['meta_data']['semester_index_start'] = i + 1
+                        current_state['career_info']['meta_data']['semester_index'] = len(
+                            upgrade_courses) - i
+                        current_state['career_info']['meta_data']['semester_index_start'] = len(
+                            upgrade_courses) - i
                         break
             elif current_state_number == 4:
                 current_state['academic_info']['graduation_semester'] = data['graduation_semester']
@@ -283,7 +286,6 @@ class State(Resource):
                 asked_questions = current_state['career_info']['asked_questions']
                 answers = current_state['career_info']["answers"]
 
-                
                 if current_question > 0:
                     # if its a new question (user didn't go back to a question they already answered)
                     if len(asked_questions) <= current_question:

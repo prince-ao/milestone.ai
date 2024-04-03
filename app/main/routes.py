@@ -66,7 +66,7 @@ def get_to_know_you():
 
         current_state = json.loads(response.decode('utf-8'))
 
-        if current_state['state'] >= DYNAMIC_END_STATE:
+        if current_state['is_end']:
             resp = redirect('/confirmation')
 
     return resp
