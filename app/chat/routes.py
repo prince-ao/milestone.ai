@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session
 from app.chat import chat_bp
 import time
 
@@ -7,7 +7,11 @@ import time
 def chatbot():
     print(str(request.referrer).split('/')[-1])
     if str(request.referrer).split('/')[-1] != 'confirmation':
-        return redirect('/')
+        resp = redirect('/')
+
+        session['error'] = "try clicking get started"
+
+        return resp
     return render_template("chat.j2")
 
 

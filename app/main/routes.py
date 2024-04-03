@@ -1,4 +1,4 @@
-from flask import render_template, make_response, request, redirect
+from flask import render_template, make_response, request, redirect, session
 from app.main import bp
 from app.apis.form_handler import DYNAMIC_END_STATE, career_readiness
 from ..redis_instance import r, USER_COOKIE_KEY
@@ -11,7 +11,13 @@ NUMBER_OF_CONFIRMATION_MILESTONES = 5
 
 @bp.get('/')
 def index():
-    return render_template("index.j2")
+    # error = request.headers['Thrown-Error']
+    error = session.get('error')
+
+    if error:
+        session['error'] = ""
+
+    return render_template("index.j2", error=error)
 
 
 @bp.get('/get-to-know-you')

@@ -1,6 +1,29 @@
 {% extends "base.j2" %}
 
+{% block script %}
+<script src="//unpkg.com/alpinejs" defer></script>
+{% endblock %}
+
 {% block content %}
+
+{% if error %}
+<div x-data="{ showError: true }" 
+     x-show="showError"
+     x-init="setTimeout(() => showError = false, 10 * 1e3)" 
+     class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded absolute top-5 left-1/2 -translate-x-1/2 z-50"
+     x-transition:leave="transition ease-in duration-900"
+     x-transition:leave-start="transform opacity-100"
+     x-transition:leave-end="transform opacity-0 -translate-y-full">
+    <div class="flex">
+      <strong class="font-bold">Error!</strong>
+      <span class="block sm:inline ms-1">{{ error }}</span>
+      <button class="ms-4" @click="showError = false">
+          ❌
+      </button>
+    </div>
+</div>
+{% endif %}
+
 <div class="">
     <a href="https://www.csi.cuny.edu/" class="fixed bottom-2 left-4 md:top-4 md:left-4 mb-2">
         <img src="https://apps.csi.cuny.edu/Images/Logo_blue_gray.png" alt="Logo" class="h-auto w-[75px] sm:w-[100px] md:w-[150px] lg:w-[200px] xl:w-[250px]">
