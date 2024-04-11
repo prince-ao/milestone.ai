@@ -11,6 +11,10 @@ redis = "*"
 colorama = "*"
 flask-restx = "*"
 seleniumbase = "*"
+langchain = "*"
+langchain-community = "*"
+langchain-openai = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
