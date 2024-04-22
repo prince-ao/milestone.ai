@@ -52,22 +52,28 @@
       });
 
       document.body.addEventListener('htmx:beforeRequest', (evt) => {
-        if (this.prompt.trim() === '') {
-          evt.preventDefault();
-        } else {
-          this.handleSubmit();
+        if (evt.detail.pathInfo.requestPath === '/chat/ai-response') {
+          if (this.prompt.trim() === '') {
+            evt.preventDefault();
+          } else {
+            this.handleSubmit();
+          }
         }
       })
 
       document.body.addEventListener('htmx:afterRequest', (evt) => {
-        this.addAdvisorMessage(evt.detail.xhr.response);
+        if (evt.detail.pathInfo.requestPath === '/chat/ai-response') {
+          this.addAdvisorMessage(evt.detail.xhr.response);
+        } else {
+          this.messages = JSON.parse(evt.detail.xhr.response)
+        }
       })
     }
   }"
   class="p-4 w-[50vw] my-[50px] mx-auto rounded shadow-xl">
   <div id="chat" class="h-[80vh] overflow-y-scroll border-b-2 border-b-[#ddd] mb-10 pb-10">
     <h1 class="text-center text-[2vw]"> Advisor </h1>
-    <div>
+    <div hx-post="/chat/get-messages" hx-trigger="load" hx-swap="none">
       <template x-for="value in messages">
         <li>
           <span class="font-bold" x-text="value.from + ': '"></span>

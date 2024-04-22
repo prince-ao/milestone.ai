@@ -63,6 +63,11 @@ class MilestoneAdviser:
         self.chat_histories = LRUChatHistory()
         self.MAX_HISTORY = 15
 
+    def get_messages(self, user_id):
+        history = self.chat_histories.get(user_id)
+
+        return history.messages
+
     def query(self, user_message, user_id):
         prompt = ChatPromptTemplate.from_messages(
             [
@@ -78,7 +83,7 @@ class MilestoneAdviser:
         chain = prompt | self.llm
 
         history = self.chat_histories.get(user_id)
-        print(history, "\n\n")
+        # print(history, "\n\n")
 
         chain_with_message_history = RunnableWithMessageHistory(
             chain,

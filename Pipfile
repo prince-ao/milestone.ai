@@ -12,9 +12,10 @@ colorama = "*"
 flask-restx = "*"
 seleniumbase = "*"
 langchain = "*"
-langchain-community = "*"
 langchain-openai = "*"
 python-dotenv = "*"
+langchain-core = "*"
+langchain-community = "*"
 
 [dev-packages]
 
