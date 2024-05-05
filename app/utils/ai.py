@@ -4,6 +4,9 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_community.chat_message_histories import SQLChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from dotenv import load_dotenv
+from langchain_community.vectorstores import Qdrant
+from qdrant_client import QdrantClient
+from langchain_openai import OpenAIEmbeddings
 from ..redis_instance import r
 
 load_dotenv()
@@ -63,6 +66,11 @@ class MilestoneAdviser:
         self.llm = ChatOpenAI(model=model)
         self.chat_histories = LRUChatHistory()
         self.MAX_HISTORY = 15
+        client = QdrantClient()
+        self.retriever = Qdrant(collection_name="gitbook1", client=client, embeddings=OpenAIEmbeddings()).as_retriever(
+            search_type="similarity_score_threshold",
+            search_kwargs={'score_threshold': 0.8}
+        )
         self.classes = """E001-LEC Regular
 CSC115
 Intro Comp Technolog
@@ -401,6 +409,7 @@ Deborah SturmDeborah Sturm"""
         response = r.get(f"{user_id}:user")
         context = f"context: {response}.".replace("{", "[").replace("}", "]")
         schedule = f"The schedule for the current semester is {self.classes}. Use it if they ask for help creating a schedule."
+        documents = self.retriever.invoke(user_message)
         prompt = ChatPromptTemplate.from_messages(
             [
                 (
@@ -411,6 +420,7 @@ Deborah SturmDeborah Sturm"""
                     schedule
                 ),
                 MessagesPlaceholder(variable_name="chat_history"),
+                MessagesPlaceholder(variable_name="documents"),
                 ("human", "{input}"),
             ]
         )
@@ -450,7 +460,7 @@ Deborah SturmDeborah Sturm"""
         )
 
         ai_message = chain_with_trimming.invoke(
-            {"input": user_message},
+            {"input": user_message, "documents": documents},
             {"configurable": {"session_id": user_id}},
         )
 
