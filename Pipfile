@@ -16,6 +16,9 @@ langchain-openai = "*"
 python-dotenv = "*"
 langchain-core = "*"
 langchain-community = "*"
+pymilvus = "*"
+qdrant-client = "*"
+lxml = "*"
 
 [dev-packages]
 

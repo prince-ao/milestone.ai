@@ -1,6 +1,7 @@
 # milestone.ai
 
 ## Documentation
+
 [click here](https://github.com/prince-ao/milestone.ai/blob/main/ARCHITECTURE.md)
 
 ## Starting app
@@ -39,4 +40,14 @@ sbase install chromedriver latest
 # run (can add options for removing pop up browser, and remove -s to stop print statements)
 
 pytest -s scraper.py
+```
+
+## Running the scrapper
+
+```bash
+# you must start qdrant before
+
+cd app/vectordb
+
+python loader.py
 ```
