@@ -50,4 +50,10 @@ pytest -s scraper.py
 cd app/vectordb
 
 python loader.py
+
+cd
+
+sudo docker run -p 6333:6333 \
+    -v $(pwd)/temp:/qdrant/storage \
+    qdrant/qdrant
 ```

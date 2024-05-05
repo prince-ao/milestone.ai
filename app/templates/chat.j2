@@ -1,4 +1,5 @@
 {% extends "base.j2" %}
+{% from 'macros/_confirmation.j2' import gen_confirm %}
 
 {% block script %}
 <!-- Alpine Plugins -->
@@ -9,135 +10,145 @@
 {% endblock %}
 
 {% block content %}
-<div
-  x-data="{
-    prompt: '',
-    messages: [],
-    boundAutoScroll: null,
-    autoScroll: true,
-    threshold: 5,
-    toBottomButton: false,
-    handleSubmit() {
-      this.messages.push({
-        from: 'You',
-        message: this.prompt,
-        typing: false
-      })
-    },
-    scrollToBottom() {
-      console.log('Pressed')
-      console.log(this.$refs.scrollContainer.scrollHeight);
-      this.$refs.scrollContainer.scrollTop = this.$refs.scrollContainer.scrollHeight - this.$refs.scrollContainer.clientHeight; 
-    },
-    stopAutoScroll() {
-        console.log('scrolled', this.autoScroll, this.$refs.scrollContainer.scrollTop);
-        if (this.$refs.scrollContainer.scrollTop < this.$refs.scrollContainer.scrollHeight - this.$refs.scrollContainer.clientHeight - this.threshold)
-        {
-          this.autoScroll = false;
-          this.toBottomButton = true;
-        } else {
-          this.autoScroll = true;
-          this.toBottomButton = false;
-        }
-    },
-    showButton() {
-        if (this.$refs.scrollContainer.scrollTop < this.$refs.scrollContainer.scrollHeight - this.$refs.scrollContainer.clientHeight - this.threshold){
-          this.toBottomButton = true;
-        } else {
-          this.toBottomButton = false;
-        }
-    },
-    addAdvisorMessage(message) {
-      let messageObject = {
-        from: 'Advisor',
-        message: message,
-        typing: true,
-        typedMessage: '',
-        typeIndex: 0,
-      };
-      this.messages.push(messageObject);
-      if (!this.boundAutoScroll) {
-        this.boundAutoScroll = this.stopAutoScroll.bind(this);
-      }
-      // add listener on scroll. If user scrolled up past threshold 
-      // it stops auto scrolling down and the scroll to bottom button appears.
-      this.$refs.scrollContainer.addEventListener('scroll', this.boundAutoScroll);
-      this.typeMessage(messageObject);
-    },
-    typeMessage(messageObject, length) {
-      let interval = setInterval(() => {
-        // scroll to bottom on each iteration of this unless
-        // the user has scrolled up. Reference the x-ref within
-        // here for easy access to element instead of using dom
-        if (this.autoScroll) {
-          this.$refs.scrollContainer.scrollTop = this.$refs.scrollContainer.scrollHeight - this.$refs.scrollContainer.clientHeight; 
-        }
-        
-        let messagesCopy = this.messages.map(message => ({ ...message }));
-
-        const index = messagesCopy.length - 1
-
-        messagesCopy[index].typedMessage += messageObject.message[messageObject.typeIndex++];
-        if (messageObject.typeIndex >= messageObject.message.length) {
-          this.$refs.scrollContainer.removeEventListener('scroll', this.boundAutoScroll);
-          clearInterval(interval);
-          messagesCopy[index].typing = false;
-        }
-
-        this.messages = messagesCopy
-      }, 10);
-    },
-    init() {
-
-      //this.scrollToBottom.bind(this)();
-      document.body.addEventListener('htmx:beforeSend', () => {
-        this.prompt = ''
-      });
-
-      document.body.addEventListener('htmx:beforeRequest', (evt) => {
-        if (evt.detail.pathInfo.requestPath === '/chat/ai-response') {
-          if (this.prompt.trim() === '') {
-            evt.preventDefault();
+<main class="flex justify-around">
+  <div class="flex flex-col items-center justify-center">
+    <h1>Hello {{ name }} 👋</h1>
+    {{ gen_confirm(milestones, true) }}
+    <a href="/form/reset">
+      <button>Redo form</button>
+    </a>
+  </div>
+  <div
+    x-data="{
+      prompt: '',
+      messages: [],
+      boundAutoScroll: null,
+      autoScroll: true,
+      threshold: 5,
+      toBottomButton: false,
+      handleSubmit() {
+        this.messages.push({
+          from: 'You',
+          message: this.prompt,
+          typing: false
+        })
+      },
+      scrollToBottom() {
+        console.log('Pressed')
+        console.log(this.$refs.scrollContainer.scrollHeight);
+        this.$refs.scrollContainer.scrollTop = this.$refs.scrollContainer.scrollHeight - this.$refs.scrollContainer.clientHeight; 
+      },
+      stopAutoScroll() {
+          console.log('scrolled', this.autoScroll, this.$refs.scrollContainer.scrollTop);
+          if (this.$refs.scrollContainer.scrollTop < this.$refs.scrollContainer.scrollHeight - this.$refs.scrollContainer.clientHeight - this.threshold)
+          {
+            this.autoScroll = false;
+            this.toBottomButton = true;
           } else {
-            this.handleSubmit();
+            this.autoScroll = true;
+            this.toBottomButton = false;
           }
+      },
+      showButton() {
+          if (this.$refs.scrollContainer.scrollTop < this.$refs.scrollContainer.scrollHeight - this.$refs.scrollContainer.clientHeight - this.threshold){
+            this.toBottomButton = true;
+          } else {
+            this.toBottomButton = false;
+          }
+      },
+      addAdvisorMessage(message) {
+        let messageObject = {
+          from: 'Advisor',
+          message: message,
+          typing: true,
+          typedMessage: '',
+          typeIndex: 0,
+        };
+        this.messages.push(messageObject);
+        if (!this.boundAutoScroll) {
+          this.boundAutoScroll = this.stopAutoScroll.bind(this);
         }
-      })
+        // add listener on scroll. If user scrolled up past threshold 
+        // it stops auto scrolling down and the scroll to bottom button appears.
+        this.$refs.scrollContainer.addEventListener('scroll', this.boundAutoScroll);
+        this.typeMessage(messageObject);
+      },
+      typeMessage(messageObject, length) {
+        let interval = setInterval(() => {
+          // scroll to bottom on each iteration of this unless
+          // the user has scrolled up. Reference the x-ref within
+          // here for easy access to element instead of using dom
+          if (this.autoScroll) {
+            this.$refs.scrollContainer.scrollTop = this.$refs.scrollContainer.scrollHeight - this.$refs.scrollContainer.clientHeight; 
+          }
+          
+          let messagesCopy = this.messages.map(message => ({ ...message }));
 
-      document.body.addEventListener('htmx:afterRequest', (evt) => {
-        if (evt.detail.pathInfo.requestPath === '/chat/ai-response') {
-          this.addAdvisorMessage(evt.detail.xhr.response);
-        } else {
-          this.messages = JSON.parse(evt.detail.xhr.response)
-        }
-      })
-      // function to show scroll down to bottom button if we are not at bottom.
-      this.$refs.scrollContainer.addEventListener('scroll', this.showButton.bind(this)) 
-    }
-  }" 
-  class="p-4 w-[50vw] my-[50px] mx-auto rounded shadow-xl" id="chatbot">
-<div x-ref="scrollContainer" id="chat" class="h-[80vh] overflow-y-scroll border-b-2 border-b-[#ddd] mb-10 pb-10">
-    <h1 class="text-center text-[2vw]">Advisor</h1>
-    <div class="relative" hx-post="/chat/get-messages" hx-trigger="load" hx-swap="none">
-      <template x-for="value in messages">
-        <li>
-          <span class="font-bold" x-text="value.from + ': '"></span>
-          <span x-text="value.typing ? value.typedMessage : value.message"></span>
-        </li>
-      </template>
-    </div>
-    <div class="absolute inset-x-0 bottom-[15%] opacity-75   pb-2 flex justify-center">
-        <button x-show="toBottomButton" @click="scrollToBottom()" class="px-4 py-2 bg-blue-500 text-white rounded-full shadow">↓</button>
-    </div>
-</div>
+          const index = messagesCopy.length - 1
 
-  
-  <form class="text-center" hx-post="/chat/ai-response" hx-trigger="submit" hx-swap="none">
-    <div class="relative overflow-y-auto mx-auto"> 
-      <input type="text" name="userInput" id="user-input" x-model="prompt" class="w-3/4 m-auto h-10 p-5 border-2 border-[#ddd] rounded" placeholder="Type your message...">
-      <button type="submit" class="absolute cursor-pointer hover:text-[gray] text-responsive-header">🡪</button>
-    </div>
-  </form>
-</div>
+          messagesCopy[index].typedMessage += messageObject.message[messageObject.typeIndex++];
+          if (messageObject.typeIndex >= messageObject.message.length) {
+            this.$refs.scrollContainer.removeEventListener('scroll', this.boundAutoScroll);
+            clearInterval(interval);
+            messagesCopy[index].typing = false;
+          }
 
+          this.messages = messagesCopy
+        }, 10);
+      },
+      init() {
+
+        //this.scrollToBottom.bind(this)();
+        document.body.addEventListener('htmx:beforeSend', () => {
+          this.prompt = ''
+        });
+
+        document.body.addEventListener('htmx:beforeRequest', (evt) => {
+          if (evt.detail.pathInfo.requestPath === '/chat/ai-response') {
+            if (this.prompt.trim() === '') {
+              evt.preventDefault();
+            } else {
+              this.handleSubmit();
+            }
+          }
+        })
+
+        document.body.addEventListener('htmx:afterRequest', (evt) => {
+          if (evt.detail.pathInfo.requestPath === '/chat/ai-response') {
+            this.addAdvisorMessage(evt.detail.xhr.response);
+          } else {
+            this.messages = JSON.parse(evt.detail.xhr.response)
+          }
+        })
+        // function to show scroll down to bottom button if we are not at bottom.
+        this.$refs.scrollContainer.addEventListener('scroll', this.showButton.bind(this)) 
+      }
+    }" 
+    class="p-4 w-[50vw] my-[50px] rounded shadow-xl" id="chatbot">
+
+  <div x-ref="scrollContainer" id="chat" class="h-[80vh] overflow-y-scroll border-b-2 border-b-[#ddd] mb-10 pb-10">
+      <h1 class="text-center text-[2vw]">Advisor</h1>
+
+      <div class="relative" hx-post="/chat/get-messages" hx-trigger="load" hx-swap="none">
+        <template x-for="value in messages">
+          <li>
+            <span class="font-bold" x-text="value.from + ': '"></span>
+            <span x-text="value.typing ? value.typedMessage : value.message"></span>
+          </li>
+        </template>
+      </div>
+      <div class="absolute inset-x-0 bottom-[15%] opacity-75   pb-2 flex justify-center">
+          <button x-show="toBottomButton" @click="scrollToBottom()" class="px-4 py-2 bg-blue-500 text-white rounded-full shadow">↓</button>
+      </div>
+  </div>
+
+    
+    <form class="text-center" hx-post="/chat/ai-response" hx-trigger="submit" hx-swap="none">
+      <div class="relative overflow-y-auto mx-auto"> 
+        <input type="text" name="userInput" id="user-input" x-model="prompt" class="w-3/4 m-auto h-10 p-5 border-2 border-[#ddd] rounded" placeholder="Type your message...">
+        <button type="submit" class="absolute cursor-pointer hover:text-[gray] text-responsive-header">🡪</button>
+      </div>
+    </form>
+  </div>
+</main>
 {% endblock %}

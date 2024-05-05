@@ -95,11 +95,19 @@ def confirmation():
     if not current_state['is_end']:
         return redirect('/get-to-know-you')
 
-    # algorithm:
-    #   create a list that stores suggestions (we want at most 5 suggestions)
-    #   go through answers, if answer was no, add that as a suggestion
-    #   add more suggestions from the higher milestones or semesters
 
+    milestones = get_milestones(current_state)
+
+    return render_template("confirmation.j2", milestones=milestones)
+
+
+def get_milestones(current_state):
+    """
+    algorithm:
+        create a list that stores suggestions (we want at most 5 suggestions)
+        go through answers, if answer was no, add that as a suggestion
+        add more suggestions from the higher milestones or semesters
+    """
     milestones = []
     asked_questions = current_state['career_info']['asked_questions']
     for i, answer in enumerate(current_state['career_info']['answers']):
@@ -124,5 +132,4 @@ def confirmation():
 
             milestones.append(
                 career_readiness[start_semester_index][start_semester_question_index])
-
-    return render_template("confirmation.j2", milestones=milestones)
+    return milestones

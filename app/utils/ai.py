@@ -1,3 +1,5 @@
+from langchain.chains import create_retrieval_chain, create_history_aware_retriever
+from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_openai import ChatOpenAI
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -8,6 +10,7 @@ from langchain_community.vectorstores import Qdrant
 from qdrant_client import QdrantClient
 from langchain_openai import OpenAIEmbeddings
 from ..redis_instance import r
+from langchain.schema import HumanMessage, AIMessage
 
 load_dotenv()
 
@@ -43,7 +46,7 @@ class LRUChatHistory:
             "user_id": user_id,
             "message_history": SQLChatMessageHistory(
                 session_id=user_id,
-                connection_string="sqlite:///user_messages.db"
+                connection_string="sqlite:///user_messages1.db"
             )
         }
 
@@ -57,6 +60,9 @@ class LRUChatHistory:
 
         if chat_history is None:
             chat_history = self.create(user_id)
+
+        print("63", self.lru_cache)
+        print("64", self.lru_keys)
 
         return chat_history
 
@@ -402,6 +408,7 @@ Deborah SturmDeborah Sturm"""
 
     def get_messages(self, user_id):
         history = self.chat_histories.get(user_id)
+        print("410", history)
 
         return history.messages
 
@@ -409,7 +416,24 @@ Deborah SturmDeborah Sturm"""
         response = r.get(f"{user_id}:user")
         context = f"context: {response}.".replace("{", "[").replace("}", "]")
         schedule = f"The schedule for the current semester is {self.classes}. Use it if they ask for help creating a schedule."
-        documents = self.retriever.invoke(user_message)
+        # documents = self.retriever.invoke(user_message)
+
+        contextualize_q_system_prompt = """Given a chat history and the latest user question \
+        which might reference context in the chat history, formulate a standalone question \
+        which can be understood without the chat history. Do NOT answer the question, \
+        just reformulate it if needed and otherwise return it as is."""
+        contextualize_q_prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", contextualize_q_system_prompt),
+                MessagesPlaceholder("chat_history"),
+                ("human", "{input}"),
+            ]
+        )
+
+        history_aware_retriever = create_history_aware_retriever(
+            self.llm, self.retriever, contextualize_q_prompt
+        )
+
         prompt = ChatPromptTemplate.from_messages(
             [
                 (
@@ -417,17 +441,20 @@ Deborah SturmDeborah Sturm"""
                     "You're a computer science adviser. You're advising a student with the characteristics in the context." +
                     "Ignore the meta_data. There is a one-to-one mapping between asked_questions and answers." +
                     "If the question does not relate to advising, kindly decline to answer." + context +
-                    schedule
+                    schedule + "Use the following pieces of retrieved context to answer the question: {context}"
                 ),
                 MessagesPlaceholder(variable_name="chat_history"),
-                MessagesPlaceholder(variable_name="documents"),
+                # MessagesPlaceholder(variable_name="documents"),
                 ("human", "{input}"),
             ]
         )
 
-        chain = prompt | self.llm
+        question_answer_chain = create_stuff_documents_chain(self.llm, prompt)
 
         history = self.chat_histories.get(user_id)
+        print("454", history)
+
+        chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
 
         chain_with_message_history = RunnableWithMessageHistory(
             chain,
@@ -460,8 +487,11 @@ Deborah SturmDeborah Sturm"""
         )
 
         ai_message = chain_with_trimming.invoke(
-            {"input": user_message, "documents": documents},
+            {"input": user_message},
             {"configurable": {"session_id": user_id}},
         )
 
-        return ai_message.content
+        history.add_message(HumanMessage(content=user_message))
+        history.add_message(AIMessage(content=ai_message["answer"]))
+
+        return ai_message['answer']

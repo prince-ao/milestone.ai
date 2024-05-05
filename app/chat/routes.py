@@ -1,7 +1,9 @@
 from flask import render_template, request, redirect, session, make_response
 from app.chat import chat_bp
 from app.utils.ai import MilestoneAdviser
-from app.redis_instance import USER_COOKIE_KEY
+from app.redis_instance import r, USER_COOKIE_KEY
+from app.main.routes import get_milestones
+import json
 
 milestoneAdviser = MilestoneAdviser()
 
@@ -35,7 +37,20 @@ def chatbot():
 
         return resp
 
-    return render_template("chat.j2")
+    try:
+        response = r.get(f"{cookie}:user")
+    except Exception:
+        return redirect('/get-to-know-you')
+
+    current_state = json.loads(response.decode('utf-8'))
+
+    if not current_state['is_end']:
+        return redirect('/get-to-know-you')
+
+    milestones = get_milestones(current_state)
+    name = f"{current_state['personal_info']['first_name']} {current_state['personal_info']['last_name']}"
+
+    return render_template("chat.j2", milestones=milestones, name=name)
 
 
 @chat_bp.post('/ai-response')

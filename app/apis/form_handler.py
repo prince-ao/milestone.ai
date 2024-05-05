@@ -1,4 +1,4 @@
-from flask import request, make_response, render_template
+from flask import request, make_response, render_template, redirect
 from flask_restx import Resource, Namespace
 from ..redis_instance import r, USER_COOKIE_KEY
 import json
@@ -123,6 +123,14 @@ questions = [
         "Have you taken the Senior Exit Survey?"
     ],
 ]
+
+@form_ns.route('/reset')
+class Reset(Resource):
+    def get(self):
+        resp = redirect('/get-to-know-you')
+        resp.delete_cookie(USER_COOKIE_KEY)
+
+        return resp
 
 
 @form_ns.route('/state')

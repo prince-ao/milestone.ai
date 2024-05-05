@@ -1,0 +1,49 @@
+{% macro gen_confirm(milestones, allow_checkboxes) -%}
+  {% if milestones|length > 0 %}
+  <table class="table-auto border-collapse border border-gray-300 w-full text-sm">
+    <thead>
+      <tr class="bg-orange text-white">
+        <th class="border border-gray-300 p-2 text-left">Recommended Career Milestones</th>
+        {% if allow_checkboxes %}
+        <th class="border border-gray-300 p-2 text-left">Done</th>
+        {% endif %}
+      </tr>
+    </thead>
+    
+
+    <tbody>
+      {% for milestone in milestones %}
+      {% if loop.index % 2 == 1 %}
+      <tr class="bg-peach">
+        <td class="border border-gray-300 p-2">
+          {{ milestone }}
+        </td>
+        {% if allow_checkboxes %}
+        <td class="border border-gray-300 p-2">
+          <label for="check1" class="flex justify-center items-center">
+            <input id="check1" type="checkbox"/>
+          </label>
+        </td>
+        {% endif %}
+      </tr>
+      {% else %}
+      <tr>
+        <td class="border border-gray-300 p-2">
+          {{ milestone }}
+        </td>
+        {% if allow_checkboxes %}
+        <td class="border border-gray-300 p-2">
+          <label for="check1" class="flex justify-center items-center">
+            <input id="check1" type="checkbox"/>
+          </label>
+        </td>
+        {% endif %}
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>You've completed all career related milestones! 🎉</p>
+  {% endif %}
+{% endmacro -%}
