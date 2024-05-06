@@ -1,9 +1,9 @@
 {% extends "questions/base.j2" %}
 
 {% block content %}
-<li>
-  <label for="academic_standing">Academic Standing:</label>
-  <select name="academic_standing" id="academic_standing" :required="submitAction === 'next'">
+<li class="flex flex-col justify-center items-center mt-24">
+  <label for="academic_standing" class="block text-2xl mb-2 font-bold">Academic Standing</label>
+  <select name="academic_standing" id="academic_standing" :required="submitAction === 'next'" class="p-2 rounded bg-[#252728] border-2">
     {% for standing in standings %}
       <option value="{{ standing }}" {{ 'selected' if standing == academic_standing }}>{{ standing }}</option>
     {% endfor %}

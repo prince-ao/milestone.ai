@@ -5,17 +5,17 @@
   hx-ext='json-enc'
   x-data="{ submitAction: 'next' }"
   hx-boost="true"
-  class="animate-appear"
+  class="animate-appear bg-[#252728] min-w-[600px] min-h-[500px] rounded-xl p-4 grid"
   {% endblock %}
   >
-  <ul>
+  <ul class="flex flex-col items-center h-[100%]">
     {% block content %}
     {% endblock %}
-    <li>
       {% block button %}
-        <button @click="submitAction = 'previous'" id="previous" type="submit">previous</button>
-        <button @click="submitAction = 'next'" id="next" type="submit">next</button>
+        <li class="self-end flex w-[100%] justify-between h-[100%] items-end mt-4">
+          <button @click="submitAction = 'previous'" id="previous" type="submit" class="py-1 px-3 rounded text-white font-bold bg-[#34a3e8] hover:bg-[#275d8b] transition-colors duration-200 ms-4">previous</button>
+          <button @click="submitAction = 'next'" id="next" type="submit" class="py-1 px-3 rounded text-white font-bold bg-[#34a3e8] hover:bg-[#275d8b] transition-colors duration-200 me-4">next</button>
+        </li>
       {% endblock %}
-    </li>
   <ul>
 </form>

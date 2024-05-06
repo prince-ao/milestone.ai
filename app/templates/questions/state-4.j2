@@ -1,9 +1,9 @@
 {% extends "questions/base.j2" %}
 
 {% block content %}
-<li>
-  <label for="graduation_semester">Graduation semester:</label>
-  <select name="graduation_semester" id="graduation_semester" :required="submitAction === 'next'">
+<li class="flex flex-col justify-center items-center mt-24">
+  <label for="graduation_semester" class="block text-2xl mb-2 font-bold">Graduation Semester</label>
+  <select name="graduation_semester" id="graduation_semester" :required="submitAction === 'next'" class="p-2 rounded bg-[#252728] border-2">
     {% for semester in semester_range %}
       <option value="{{ semester }}" {{ 'selected' if semester == graduation_semester }}>{{ semester }}</option>
     {% endfor %}

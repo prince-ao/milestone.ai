@@ -1,4 +1,4 @@
-{% macro header(link) -%}
+{% macro header(link, hed) -%}
 <header class="h-[5rem] flex items-center">
     <div class="w-[200px] ms-4">
         {% if link %}
@@ -11,5 +11,8 @@
         </a>
         {% endif %}
     </div>
+    {% if hed %}
+        <h1 class="text-3xl ms-6 font-bold font-display inline-flex animate-text-gradient bg-gradient-to-r from-orange-500 via-[#8678f9] to-red-600 bg-[200%_auto] bg-clip-text text-transparent">milestone.ai</h1>
+    {% endif %}
 </header>
 {% endmacro -%}

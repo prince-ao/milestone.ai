@@ -2,215 +2,218 @@
 
 {% block content %}
 <li>
-    <h1 class="text-center text-responsive-header">CS Classes Taken or Taking</h1>
-    <div class="flex flex-col">
-        <div class="">Core classes</div>
-        <label>
-          <input type="checkbox" name="classes_taken" value="CSC126" {{ 'checked' if 'CSC126' in classes_taken }}>
-            CSC 126 - Introduction to Computer Science
-        </label>
+    <div class="flex flex-col mb-2">
+        <div class="flex flex-col mb-6">
+            <div class="text-xl underline mb-1">Core classes</div>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC126" {{ 'checked' if 'CSC126' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 126 - Introduction to Computer Science
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC211" {{ 'checked' if 'CSC211' in classes_taken }}>
-            CSC 211 - Intermediate Programming 
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC211" {{ 'checked' if 'CSC211' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 211 - Intermediate Programming 
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC220" {{ 'checked' if 'CSC220' in classes_taken }}>
-            CSC 220 - Computer Organization
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC220" {{ 'checked' if 'CSC220' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 220 - Computer Organization
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC221" {{ 'checked' if 'CSC221' in classes_taken }}>
-            CSC 221 - Networking and Security
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC221" {{ 'checked' if 'CSC221' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 221 - Networking and Security
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC228" {{ 'checked' if 'CSC228' in classes_taken }}>
-            CSC 228 - Discrete Mathematical Structures for Computer Science
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC228" {{ 'checked' if 'CSC228' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 228 - Discrete Mathematical Structures for Computer Science
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC305" {{ 'checked' if 'CSC305' in classes_taken }}>
-            CSC 305 - Operating Systems Programming Laboratory 
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC305" {{ 'checked' if 'CSC305' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 305 - Operating Systems Programming Laboratory 
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC326" {{ 'checked' if 'CSC326' in classes_taken }}>
-            CSC 326 - Data Structures
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC326" {{ 'checked' if 'CSC326' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 326 - Data Structures
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC330" {{ 'checked' if 'CSC330' in classes_taken }}>
-            CSC 330 - Object-Oriented Software Design
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC330" {{ 'checked' if 'CSC330' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 330 - Object-Oriented Software Design
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC332" {{ 'checked' if 'CSC332' in classes_taken }}>
-            CSC 332 - Operating Systems I
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC332" {{ 'checked' if 'CSC332' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 332 - Operating Systems I
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC315" {{ 'checked' if 'CSC315' in classes_taken }}>
-            CSC 315 - Introduction to Database Systems
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC315" {{ 'checked' if 'CSC315' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 315 - Introduction to Database Systems
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC346" {{ 'checked' if 'CSC346' in classes_taken }}>
-            CSC 346 - Digital Systems Design
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC346" {{ 'checked' if 'CSC346' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 346 - Digital Systems Design
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC347" {{ 'checked' if 'CSC347' in classes_taken }}>
-            CSC 347 - Digital Systems Laboratory
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC347" {{ 'checked' if 'CSC347' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 347 - Digital Systems Laboratory
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC382" {{ 'checked' if 'CSC382' in classes_taken }}>
-            CSC 382 - Analysis of Algorithms
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC382" {{ 'checked' if 'CSC382' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 382 - Analysis of Algorithms
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC430" {{ 'checked' if 'CSC430' in classes_taken }}>
-            CSC 430 - Software Engineering
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC430" {{ 'checked' if 'CSC430' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 430 - Software Engineering
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC446" {{ 'checked' if 'CSC446' in classes_taken }}>
-            CSC 446 - Computer Architecture
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC446" {{ 'checked' if 'CSC446' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 446 - Computer Architecture
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC490" {{ 'checked' if 'CSC490' in classes_taken }}>
-            CSC 490 - Seminar in Computer Science
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC490" {{ 'checked' if 'CSC490' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 490 - Seminar in Computer Science
+            </label>
+        </div>
 
         <!-- ELECTIVES -->
-        <div class="text-responsive-subheader">Electives</div>
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC223" {{ 'checked' if 'CSC223' in classes_taken }}>
-            CSC 223 - Cybersecurity Fundamentals
-        </label>
+        <div class="flex flex-col mb-6">
+            <div class="text-xl underline mb-1">Electives</div>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC223" {{ 'checked' if 'CSC223' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 223 - Cybersecurity Fundamentals
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC225" {{ 'checked' if 'CSC225' in classes_taken }}>
-            CSC 225 - Introduction to Web Development and the Internet
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC225" {{ 'checked' if 'CSC225' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 225 - Introduction to Web Development and the Internet
+            </label>
 
-        <label>
-                      <input type="checkbox" name="classes_taken" value="CSC226" {{ 'checked' if 'CSC226' in classes_taken }}>
-            CSC 226 - Web Database Applications
-        </label>
+            <label class="flex items-center mb-1">
+                        <input type="checkbox" name="classes_taken" value="CSC226" {{ 'checked' if 'CSC226' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 226 - Web Database Applications
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC229" {{ 'checked' if 'CSC229' in classes_taken }}>
-            CSC 229 - Introduction to High Performance Computing
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC229" {{ 'checked' if 'CSC229' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 229 - Introduction to High Performance Computing
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC235" {{ 'checked' if 'CSC235' in classes_taken }}>
-            CSC 235 - Robotic Explorations
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC235" {{ 'checked' if 'CSC235' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 235 - Robotic Explorations
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC245" {{ 'checked' if 'CSC245' in classes_taken }}>
-            CSC 245 - Introduction to Data Science
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC245" {{ 'checked' if 'CSC245' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 245 - Introduction to Data Science
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC250" {{ 'checked' if 'CSC250' in classes_taken }}>
-            CSC 250 - Serious Game Development
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC250" {{ 'checked' if 'CSC250' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 250 - Serious Game Development
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC412" {{ 'checked' if 'CSC412' in classes_taken }}>
-            CSC 412 - Machine Learning and Knowledge Discovery
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC412" {{ 'checked' if 'CSC412' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 412 - Machine Learning and Knowledge Discovery
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC420" {{ 'checked' if 'CSC420' in classes_taken }}>
-            CSC 420 - Concepts of Programming Languages
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC420" {{ 'checked' if 'CSC420' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 420 - Concepts of Programming Languages
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC421" {{ 'checked' if 'CSC421' in classes_taken }}>
-            CSC 421 - Internet Data Communications and Security
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC421" {{ 'checked' if 'CSC421' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 421 - Internet Data Communications and Security
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC424" {{ 'checked' if 'CSC424' in classes_taken }}>
-            CSC 424 - Advanced Database Systems
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC424" {{ 'checked' if 'CSC424' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 424 - Advanced Database Systems
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC425" {{ 'checked' if 'CSC425' in classes_taken }}>
-            CSC 425 - Shared Memory Parallel Computing
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC425" {{ 'checked' if 'CSC425' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 425 - Shared Memory Parallel Computing
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC426" {{ 'checked' if 'CSC426' in classes_taken }}>
-            CSC 426 - Applied Cryptography
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC426" {{ 'checked' if 'CSC426' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 426 - Applied Cryptography
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC427" {{ 'checked' if 'CSC427' in classes_taken }}>
-            CSC 427 - Advanced Computer Game Programming
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC427" {{ 'checked' if 'CSC427' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 427 - Advanced Computer Game Programming
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC429" {{ 'checked' if 'CSC429' in classes_taken }}>
-            CSC 429 - Advanced High Performance Computing
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC429" {{ 'checked' if 'CSC429' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 429 - Advanced High Performance Computing
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC432" {{ 'checked' if 'CSC432' in classes_taken }}>
-            CSC 432 - Operating Systems II
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC432" {{ 'checked' if 'CSC432' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 432 - Operating Systems II
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC434" {{ 'checked' if 'CSC434' in classes_taken }}>
-            CSC 434 - Compiler Construction
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC434" {{ 'checked' if 'CSC434' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 434 - Compiler Construction
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC435" {{ 'checked' if 'CSC435' in classes_taken }}>
-            CSC 435 - Advanced Data Communications
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC435" {{ 'checked' if 'CSC435' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 435 - Advanced Data Communications
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC436" {{ 'checked' if 'CSC436' in classes_taken }}>
-            CSC 436 - Modern Web Development
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC436" {{ 'checked' if 'CSC436' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 436 - Modern Web Development
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC438" {{ 'checked' if 'CSC438' in classes_taken }}>
-            CSC 438 - Mobile Application Development
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC438" {{ 'checked' if 'CSC438' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 438 - Mobile Application Development
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC470" {{ 'checked' if 'CSC470' in classes_taken }}>
-            CSC 470 - Introductory Computer Graphics
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC470" {{ 'checked' if 'CSC470' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 470 - Introductory Computer Graphics
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC475" {{ 'checked' if 'CSC475' in classes_taken }}>
-            CSC 475 - Image Processing in Computer Science
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC475" {{ 'checked' if 'CSC475' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 475 - Image Processing in Computer Science
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC480" {{ 'checked' if 'CSC480' in classes_taken }}>
-            CSC 480 - Artificial Intelligence
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC480" {{ 'checked' if 'CSC480' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 480 - Artificial Intelligence
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC482" {{ 'checked' if 'CSC482' in classes_taken }}>
-            CSC 482 - Discrete Simulation
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC482" {{ 'checked' if 'CSC482' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 482 - Discrete Simulation
+            </label>
 
-        <label>
-            <input type="checkbox" name="classes_taken" value="CSC484" {{ 'checked' if 'CSC484' in classes_taken }}>
-            CSC 484 - Theory of Computation
-        </label>
+            <label class="flex items-center mb-1">
+                <input type="checkbox" name="classes_taken" value="CSC484" {{ 'checked' if 'CSC484' in classes_taken }} class="appearance-none w-[25px] h-[25px] border-2 border[#ccc] rounded bg-white cursor-pointer me-4 checked:bg-[#b3daff] checked:border-none checked:flex checked:items-center checked:justify-center checked:after:content-['✔'] checked:after:text-[#fff] checked:after:text-sm">
+                CSC 484 - Theory of Computation
+            </label>
+        </div>
     </div>
 </li>
 

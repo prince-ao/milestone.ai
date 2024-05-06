@@ -1,26 +1,30 @@
 {% extends "questions/base.j2" %}
 
 {% block content %}
-<li>
-  <label for="first_name">first name:</label>
-  <input
-    placeholder="first name..."
-    value="{{ first_name }}"
-    type="text"
-    id="first_name"
-    name="first_name"
-    :required="submitAction === 'next'"
-  >
-</li>
-<li>
-  <label for="last_name">last name:</label>
-  <input
-    placeholder="last name..."
-    value="{{ last_name }}"
-    type="text"
-    id="last_name"
-    name="last_name"
-    :required="submitAction === 'next'"
-  >
-</li>
+<div class="h-[100%] self-center justify-self-center flex flex-col justify-center items-center">
+  <li class="mb-6">
+    <label for="first_name" class="block mb-2 text-lg">first name</label>
+    <input
+      placeholder="first name..."
+      value="{{ first_name }}"
+      type="text"
+      id="first_name"
+      name="first_name"
+      :required="submitAction === 'next'"
+      class="rounded bg-[#252728] border-[#303334] border-2 p-1 focus:outline-none text-lg"
+    >
+  </li>
+  <li>
+    <label for="last_name" class="block mb-2 text-lg">last name</label>
+    <input
+      placeholder="last name..."
+      value="{{ last_name }}"
+      type="text"
+      id="last_name"
+      name="last_name"
+      :required="submitAction === 'next'"
+      class="rounded bg-[#252728] border-[#303334] border-2 p-1 focus:outline-none text-lg"
+    >
+  </li>
+</div>
 {% endblock %}

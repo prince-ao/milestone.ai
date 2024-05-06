@@ -1,18 +1,18 @@
 {% extends "questions/base.j2" %}
 
 {% block content %}
-<li>
-  <fieldset>
-    <legend>{{ question }}</legend>
+<li class="w-[100%]">
+  <fieldset class="max-w-xs">
+    <legend class="text-xl">{{ question }}</legend>
 
-    <div>
-      <input type="radio" id="yes" name="selection" value="yes" :required="submitAction === 'next' || submitAction == 'done'" {{ yes_checked }} />
-      <label for="yes">Yes</label>
+    <div class="mt-6">
+      <input type="radio" id="yes" name="selection" value="yes" :required="submitAction === 'next' || submitAction == 'done'" {{ yes_checked }} class="hidden peer" />
+      <label for="yes" class="cursor-pointer py-1 px-4 rounded-lg text-blue-600 text-center peer-checked:bg-blue-600 peer-checked:text-white bg-gray-200">Yes</label>
     </div>
 
-    <div>
-      <input type="radio" id="no" name="selection" value="no" {{ no_checked }} />
-      <label for="no">No</label>
+    <div class="mt-3">
+      <input type="radio" id="no" name="selection" value="no" {{ no_checked }} class="hidden peer" />
+      <label for="no" class="cursor-pointer py-1 px-4 rounded-lg text-blue-600 text-center peer-checked:bg-blue-600 peer-checked:text-white bg-gray-200">No</label>
     </div>
   </fieldset>
 </li>
@@ -20,10 +20,14 @@
 
 {% block button %}
 {% if is_end %}
-<button @click="submitAction = 'previous'" id="previous" type="submit">previous</button>
-<button @click="submitAction = 'done'" id="done" type="submit">done</button>
+<li class="self-end flex w-[100%] justify-between h-[100%] items-end mt-4">
+  <button @click="submitAction = 'previous'" id="previous" type="submit" class="py-1 px-3 rounded text-white font-bold bg-[#34a3e8] hover:bg-[#275d8b] transition-colors duration-200 ms-4">previous</button>
+  <button @click="submitAction = 'done'" id="done" type="submit" class="py-1 px-3 rounded text-white font-bold bg-[#34a3e8] hover:bg-[#275d8b] transition-colors duration-200 me-4">done</button>
+</li>
 {% else %}
-<button @click="submitAction = 'previous'" id="previous" type="submit">previous</button>
-<button @click="submitAction = 'next'" id="next" type="submit">next</button>
+<li class="self-end flex w-[100%] justify-between h-[100%] items-end mt-4">
+  <button @click="submitAction = 'previous'" id="previous" type="submit" class="py-1 px-3 rounded text-white font-bold bg-[#34a3e8] hover:bg-[#275d8b] transition-colors duration-200 ms-4">previous</button>
+  <button @click="submitAction = 'next'" id="next" type="submit" class="py-1 px-3 rounded text-white font-bold bg-[#34a3e8] hover:bg-[#275d8b] transition-colors duration-200 me-4">next</button>
+</li>
 {% endif %}
 {% endblock %}

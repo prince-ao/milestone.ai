@@ -1,4 +1,5 @@
 {% extends "base.j2" %}
+{% from 'macros/_header.j2' import header %}
 
 {% block script %}
 <script src="//unpkg.com/alpinejs" defer></script>
@@ -12,14 +13,16 @@
 {% endblock %}
 
 
+{% block other_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Madimi+One&family=Protest+Strike&family=Sedan:ital@0;1&family=Tilt+Neon&display=swap" rel="stylesheet">
+{% endblock %}
+
+
 {% block content %}
 <div x-data="{ }" class="h-lvh">
-  <header class="h-header">
-    <a href="/">
-      <button>cancel</button>
-    </a>
-    <h1>milestone.ai</h1>
-  </header>
+  {{ header(true, true) }}
   <main 
        hx-get="/form/state" 
        hx-trigger="load" 
