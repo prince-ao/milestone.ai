@@ -368,6 +368,7 @@ class State(Resource):
             ...
 
         current_state = json.loads(response.decode('utf-8'))
+        print(current_state)
 
         end = self._is_end_state(current_state)
 

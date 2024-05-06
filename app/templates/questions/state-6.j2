@@ -1,8 +1,8 @@
 {% extends "questions/base.j2" %}
 
 {% block content %}
-<li>
-  <label for="credits_taken">Credits Taken:</label>
+<li class="flex flex-col justify-center items-center mt-24">
+  <label for="credits_taken" class="block text-2xl mb-2 font-bold">Credits Taken</label>
   <input
     placeholder="credits taken"
     type="number"
@@ -13,6 +13,7 @@
     id="credits_taken""
     name="credits_taken"
     value="{{ credits_taken }}"
+    class="p-2 rounded bg-[#252728] border-2"
   >
 </li>
 {% endblock %}

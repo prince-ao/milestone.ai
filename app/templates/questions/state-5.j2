@@ -1,8 +1,8 @@
 {% extends "questions/base.j2" %}
 
 {% block content %}
-<li>
-  <label for="gpa">GPA:</label>
+<li class="flex flex-col justify-center items-center mt-24">
+  <label for="gpa" class="block text-2xl mb-2 font-bold">GPA</label>
   <input
     placeholder="gpa"
     type="number"
@@ -12,6 +12,7 @@
     id="gpa"
     name="gpa"
     value="{{ current_gpa }}"
+    class="p-2 rounded bg-[#252728] border-2"
   >
 </li>
 {% endblock %}

@@ -19,9 +19,14 @@ module.exports = {
       backgroundColor: {
         peach: "#fce9d9",
         orange: "#f79546",
+        bluee: "rgba(52, 163, 232, 0.25)",
       },
       fontFamily: {
         display: ["Lilita One", "sans-serif", "ui-sans-serif"],
+      },
+      boxShadow: {
+        glow: "0 0 50px 10px rgba(30, 31, 32, 0.4)",
+        "glow-blue": "0 0 50px 10px rgba(52, 163, 232, 0.4)",
       },
       keyframes: {
         "text-gradient": {

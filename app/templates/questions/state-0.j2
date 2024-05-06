@@ -1,11 +1,13 @@
 {% extends "questions/base.j2" %}
 
 {% block content %}
-<li>
-  <p>Personal Information</p>
+<li class="h-[100%] self-center justify-self-center flex">
+  <p class="text-4xl font-bold font-display self-end">Personal Information</p>
 </li>
 {% endblock %}
 
 {% block button %}
-<button id="next" type="submit">next</button>
+<li class="self-end justify-self-end h-[100%] flex items-end">
+  <button id="next" type="submit" class="py-1 px-3 rounded text-white font-bold bg-[#34a3e8] hover:bg-[#275d8b] transition-colors duration-200 mt-4 me-4">next</button>
+</li>
 {% endblock %}
