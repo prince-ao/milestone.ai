@@ -41,6 +41,10 @@
           message: this.prompt,
           typing: false
         })
+
+      this.$nextTick(() => {
+        this.scrollToBottom();
+      });
       },
       scrollToBottom() {
         console.log('Pressed')
@@ -106,7 +110,7 @@
         }, 10);
       },
       init() {
-
+        window.onload = () => {this.scrollToBottom()};
         //this.scrollToBottom.bind(this)();
         document.body.addEventListener('htmx:beforeSend', () => {
           this.prompt = ''
