@@ -1,7 +1,14 @@
 {% extends "base.j2" %}
+{% from 'macros/_header.j2' import header %}
 
 {% block script %}
 <script src="//unpkg.com/alpinejs" defer></script>
+{% endblock %}
+
+{% block other_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Madimi+One&family=Protest+Strike&family=Sedan:ital@0;1&family=Tilt+Neon&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -24,44 +31,24 @@
 </div>
 {% endif %}
 
-<div class="">
-    <a href="https://www.csi.cuny.edu/" class="fixed bottom-2 left-4 md:top-4 md:left-4 mb-2">
-        <img src="https://apps.csi.cuny.edu/Images/Logo_blue_gray.png" alt="Logo" class="h-auto w-[75px] sm:w-[100px] md:w-[150px] lg:w-[200px] xl:w-[250px]">
-    </a>
-</div>
+{{ header() }}
 
-<main class="min-h-screen">
-    <!-- Logo (Image on the left) -->
-
-    <!-- Title (Centered) -->
-    <h1 class="text-responsive-title mt-4 font-black from-inherit text-center text-[#475D7B] tracking-wider">milestone.ai</h1>
-    <!-- The rest of your page content -->
-    <!-- Header Section -->
-    <div class="min-h-screen flex flex-col justify-center items-center mx-auto py-10 font-mono">
-        <!-- Element One in Flex Box -->
-        <div class="flex flex-col flex-grow justify-center items-center w-full text-responsive-header">
-            <p class="w-3/4 lg:w-1/2 text-[#84C7F1] mx-auto text-center font-bold">
-                Milestone is an advisement tool to help you beat expectations.
-            </p>
-        </div>
-
-        <!-- Element Two in Flex Box -->
-        <div class="flex flex-col flex-grow justify-start items-center w-full">
-            <p class="w-3/4 lg:w-1/2 mx-auto text-center mt-8 text-responsive-subheader">
-                Fill out some information about your college experiences, and we'll provide personalized advice!
-            </p>
-            <!-- Button to Form -->
-            <a href="/get-to-know-you" class="mt-4 bg-[#84C7F1] hover:bg-[#5C9BD1] text-white font-bold py-2 px-4 rounded text-responsive-header">
-                Get Started
-            </a>
-        </div>
-
-        <div class="flex flex-col flex-grow w-1/4">
-
-        </div>
-        
+<main>
+    <div class="flex flex-col min-h-title justify-center items-center">
+        <h1 class="text-8xl mb-8 font-bold font-display inline-flex animate-text-gradient bg-gradient-to-r from-orange-500 via-[#8678f9] to-red-600 bg-[200%_auto] bg-clip-text text-transparent">milestone.ai</h1>
+        <p class="text-xl font-sans font-bold">
+            Your guide to success.
+        </p>
     </div>
 
+    <div class="flex flex-col justify-center items-center min-h-get-started">
+        <a href="/get-to-know-you">
+            <button class="py-3 px-6 rounded-xl font-bold bg-[#34a3e8] hover:bg-[#275d8b] text-xl text-white transition-colors duration-200">get started</button>
+        </a>
+        <p class="font-sans text-center mt-4">
+            Fill out some information about your college experiences,<br>and we'll provide personalized advice!
+        </p>
+    </div>
 </main>
 
 {% endblock %}

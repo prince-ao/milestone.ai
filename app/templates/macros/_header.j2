@@ -1,0 +1,15 @@
+{% macro header(link) -%}
+<header class="h-[5rem] flex items-center">
+    <div class="w-[200px] ms-4">
+        {% if link %}
+        <a href="/" class="w-[50px]">
+            <img src="https://apps.csi.cuny.edu/Images/Logo_blue_gray.png" alt="Logo" class="">
+        </a>
+        {% else %}
+        <a href="https://www.csi.cuny.edu/" target="_blank" class="w-[50px]">
+            <img src="https://apps.csi.cuny.edu/Images/Logo_blue_gray.png" alt="Logo" class="">
+        </a>
+        {% endif %}
+    </div>
+</header>
+{% endmacro -%}

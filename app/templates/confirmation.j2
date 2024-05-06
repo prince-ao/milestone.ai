@@ -1,12 +1,14 @@
 {% extends "base.j2" %}
 {% from 'macros/_confirmation.j2' import gen_confirm %}
+{% from 'macros/_header.j2' import header %}
 
 {% block content %}
-<main class="flex justify-center items-center min-h-lvh">
-  <div>
+{{ header(true) }}
+<main class="flex justify-center items-center min-h-body">
+  <div class="flex flex-col">
     {{ gen_confirm(milestones) }}
-    <a href="/chat/adviser">
-      <button class="mt-8 bg-green-400 rounded-xl p-2 hover:bg-green-500 text-white font-bold">Continue</button>
+    <a href="/chat/adviser" class="mt-8 self-end">
+      <button class="py-2 px-4 rounded-xl text-white font-bold bg-[#34a3e8] hover:bg-[#275d8b] transition-colors duration-200">Continue</button>
     </a>
   </div>
 </main>

@@ -61,9 +61,6 @@ class LRUChatHistory:
         if chat_history is None:
             chat_history = self.create(user_id)
 
-        print("63", self.lru_cache)
-        print("64", self.lru_keys)
-
         return chat_history
 
 
@@ -408,13 +405,13 @@ Deborah SturmDeborah Sturm"""
 
     def get_messages(self, user_id):
         history = self.chat_histories.get(user_id)
-        print("410", history)
 
         return history.messages
 
     def query(self, user_message, user_id):
         response = r.get(f"{user_id}:user")
         context = f"context: {response}.".replace("{", "[").replace("}", "]")
+        print(context)
         schedule = f"The schedule for the current semester is {self.classes}. Use it if they ask for help creating a schedule."
         # documents = self.retriever.invoke(user_message)
 
@@ -438,7 +435,7 @@ Deborah SturmDeborah Sturm"""
             [
                 (
                     "system",
-                    "You're a computer science adviser. You're advising a student with the characteristics in the context." +
+                    "You're a computer science adviser. You're advising a student with the characteristics in the context; if asked, provide the context." +
                     "Ignore the meta_data. There is a one-to-one mapping between asked_questions and answers." +
                     "If the question does not relate to advising, kindly decline to answer." + context +
                     schedule + "Use the following pieces of retrieved context to answer the question: {context}"
@@ -452,7 +449,6 @@ Deborah SturmDeborah Sturm"""
         question_answer_chain = create_stuff_documents_chain(self.llm, prompt)
 
         history = self.chat_histories.get(user_id)
-        print("454", history)
 
         chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
 

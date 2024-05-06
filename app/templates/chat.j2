@@ -1,5 +1,6 @@
 {% extends "base.j2" %}
 {% from 'macros/_confirmation.j2' import gen_confirm %}
+{% from 'macros/_header.j2' import header %}
 
 {% block script %}
 <!-- Alpine Plugins -->
@@ -9,13 +10,21 @@
 <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
 {% endblock %}
 
+{% block other_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Madimi+One&family=Protest+Strike&family=Sedan:ital@0;1&family=Tilt+Neon&display=swap" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-<main class="flex justify-around">
+{{ header(true) }}
+
+<main class="flex justify-around min-h-body">
   <div class="flex flex-col items-center justify-center">
-    <h1>Hello {{ name }} 👋</h1>
+    <h1 class="font-bold mb-8 text-2xl">Hello {{ name }}, 👋</h1>
     {{ gen_confirm(milestones, true) }}
-    <a href="/form/reset">
-      <button>Redo form</button>
+    <a href="/form/reset" class="self-start mt-4">
+      <button class="py-2 px-4 rounded-xl text-white font-bold bg-[#34a3e8] hover:bg-[#275d8b] transition-colors duration-200">Redo form</button>
     </a>
   </div>
   <div
@@ -124,29 +133,31 @@
         this.$refs.scrollContainer.addEventListener('scroll', this.showButton.bind(this)) 
       }
     }" 
-    class="p-4 w-[50vw] my-[50px] rounded shadow-xl" id="chatbot">
+    class="w-[50vw] rounded shadow-xl p-2" id="chatbot">
 
-  <div x-ref="scrollContainer" id="chat" class="h-[80vh] overflow-y-scroll border-b-2 border-b-[#ddd] mb-10 pb-10">
-      <h1 class="text-center text-[2vw]">Advisor</h1>
+  <div x-ref="scrollContainer" id="chat" class="h-[80vh] overflow-y-scroll border-b-2 border-b-[#ddd] mb-6 pb-10 scroll-smooth">
+      <div class="fixed bg-[#353839] z-10 w-[80vh]">
+        <h1 class="text-center text-4xl font-display">Advisor</h1>
+      </div>
 
-      <div class="relative" hx-post="/chat/get-messages" hx-trigger="load" hx-swap="none">
+      <div class="relative mt-20" hx-post="/chat/get-messages" hx-trigger="load" hx-swap="none">
         <template x-for="value in messages">
-          <li>
+          <li :class="value.from === 'You' ? 'mb-2' : 'bg-[#2e3132] mb-6'" class="p-1">
             <span class="font-bold" x-text="value.from + ': '"></span>
             <span x-text="value.typing ? value.typedMessage : value.message"></span>
           </li>
         </template>
       </div>
-      <div class="absolute inset-x-0 bottom-[15%] opacity-75   pb-2 flex justify-center">
-          <button x-show="toBottomButton" @click="scrollToBottom()" class="px-4 py-2 bg-blue-500 text-white rounded-full shadow">↓</button>
+      <div class="absolute inset-x-0 bottom-[12%] opacity-75 pb-2 left-3/4">
+          <button x-show="toBottomButton" @click="scrollToBottom()" class="px-4 py-2 bg-[#34a3e8] hover:bg-[#275d8b] transition-colors duration-200 text-white rounded-full shadow">↓</button>
       </div>
   </div>
 
     
     <form class="text-center" hx-post="/chat/ai-response" hx-trigger="submit" hx-swap="none">
-      <div class="relative overflow-y-auto mx-auto"> 
-        <input type="text" name="userInput" id="user-input" x-model="prompt" class="w-3/4 m-auto h-10 p-5 border-2 border-[#ddd] rounded" placeholder="Type your message...">
-        <button type="submit" class="absolute cursor-pointer hover:text-[gray] text-responsive-header">🡪</button>
+      <div class="flex items-center justify-center gap-3"> 
+        <input type="text" name="userInput" id="user-input" x-model="prompt" class="w-3/4 h-10 p-5 border-2 border-[#ddd] rounded bg-[#353839] border-[#2b2b2b] focus:outline-none" placeholder="type your message...">
+        <button type="submit" class="cursor-pointer bg-[#34a3e8] hover:bg-[#275d8b] text-2xl font-bold py-1 px-3 rounded-lg transition-colors duration-200">🡪</button>
       </div>
     </form>
   </div>
