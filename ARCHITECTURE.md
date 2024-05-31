@@ -4,16 +4,6 @@
 
 ### Purpose of document The purpose of this document is to describe the design and architecture of milestone.ai.
 
-### Vision Statement
-
-Around 2021 Kristi Brescia decided to create a document that displayed what
-classes students should take at each semester of college and what extra-curricular
-activities they should engage in, in order to increase their career readiness. This
-document turned out to be successful. The goal of this application is to build upon
-this document and make it more interactive. Students will not able be able to view
-this static document, but interact with it by asking it questions and getting
-individualized responses.
-
 ### Features of the application
 
 - Users will get their personalized graduation milestone box
